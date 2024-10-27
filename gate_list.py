@@ -12,6 +12,9 @@ The gates are initialised objects of the 'UnitaryGate' class from the
 
 # e.g.   X_matrix = np.array(blah)
 
+
+123456
+
 # define gates
 
 #e.g. X = UnitaryGate(X_matrix)
