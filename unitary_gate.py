@@ -17,10 +17,12 @@ class UnitaryGate:
 
         TODO: fill out rest ..
         """
-        
+        self.matrix = matrix
         #TODO: FILL IN
+
 
     def apply(self, state):
         #TODO: fill in
-        
+        return self.matrix @ state
     # could add other functions here that output the representation? idk
+
