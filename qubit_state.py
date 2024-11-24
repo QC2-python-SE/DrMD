@@ -56,9 +56,13 @@ class QubitState:
         
         else:
             # Type check for matrices
-            if not isinstance((matrix1, matrix2), (tuple, list, np.ndarray)):  
-                raise TypeError("The qubit state matrix must be a tuple, "\
-                                "list or NumPy array.")
+            if not isinstance(matrix1, (tuple, list, np.ndarray)):  
+                raise TypeError("The first qubit state matrix must be a "\
+                                "tuple, list or NumPy array.")
+
+            if not isinstance(matrix2, (tuple, list, np.ndarray)):  
+                raise TypeError("The second qubit state matrix must be a "\
+                                "tuple, list or NumPy array.")
             
             # Convert list or tuple to np array
             if isinstance(matrix1, (list, tuple)):
