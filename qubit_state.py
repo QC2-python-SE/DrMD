@@ -43,8 +43,8 @@ class QubitState:
 
             # Type check for matrix
             if not isinstance(matrix, (tuple, list, np.ndarray)):  
-                raise TypeError("The qubit state matrix must be a tuple,\
-                                 list or NumPy array.")
+                raise TypeError("The qubit state matrix must be a tuple, "\
+                                "list or NumPy array.")
             
             # Convert list or tuple to np array
             if isinstance(matrix, (list, tuple)):
@@ -57,7 +57,8 @@ class QubitState:
         else:
             # Type check for matrices
             if not isinstance((matrix1, matrix2), (tuple, list, np.ndarray)):  
-                raise TypeError("The qubit state matrices must be tuples, lists or NumPy arrays.")
+                raise TypeError("The qubit state matrix must be a tuple, "\
+                                "list or NumPy array.")
             
             # Convert list or tuple to np array
             if isinstance(matrix1, (list, tuple)):
@@ -68,13 +69,17 @@ class QubitState:
             
             # Check dimensions of matrix parameters
             if matrix1.ndim != 1 or matrix1.shape != (2,):
-                raise ValueError("The first qubit state matrix should be a 2x1 matrix.")
+                raise ValueError("The first qubit state matrix should be "\
+                                 "a 2x1 matrix.")
             
             if matrix2.ndim != 1 or matrix2.shape != (2,):
-                raise ValueError("The second qubit state matrix should be a 2x1 matrix.")
+                raise ValueError("The second qubit state matrix should be "\
+                                 "a 2x1 matrix.")
         
             # Combine the two single-qubit states
             matrix = np.kron(matrix1, matrix2)
+
+        self.__qb_init = matrix  # storing initial state in private variable
 
         # Check normalisation
         total_sum = np.sum(matrix)
@@ -82,7 +87,6 @@ class QubitState:
             matrix = matrix/total_sum  # renormalise
         
         self.__qb_matrix = matrix
-        self.__qb_init = matrix  # storing initial state in private variable
 
     def get_initial(self):
         """
