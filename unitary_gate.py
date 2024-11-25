@@ -25,3 +25,10 @@ class UnitaryGate:
         #TODO: fill in
         return self.matrix @ state
     # could add other functions here that output the representation? idk
+
+    def print(self):
+        print(self.matrix)
+ 
+    def copy(self):
+        mat = self.matrix.copy()
+        return UnitaryGate(mat)
