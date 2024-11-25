@@ -114,6 +114,17 @@ class QubitState:
         """
         return np.copy(self.__qb_matrix)
 
+    def copy(self):
+        """
+        Creates and returns a copy of the current qubit
+        state as a QubitState object.
+
+        Returns:
+            QubitState: copy of current state object.
+        """
+        temp_qs = QubitState(np.copy(self.__qb_matrix))
+        return temp_qs
+
     def __repr__(self):
         """
         Function to override the default 'print()' behaviour in python.
