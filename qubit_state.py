@@ -95,22 +95,24 @@ class QubitState:
     def get_initial(self):
         """
         Function to give the qubit state used to initialise this
-        QubitState object.
+        QubitState object. Returns a copy of the array to ensure no
+        unwanted mutability.
         
         Returns:
             numpy.ndarray: The initial qubit state.
         """
-        return self.__qb_init
+        return np.copy(self.__qb_init)
     
     def peek(self):
         """
         Function to show the current qubit state probabilities in the
-        computational basis.
+        computational basis. Returns a copy of the array to ensure no
+        unwanted mutability.
 
         Returns:
             numpy.ndarray: 4x1 matrix of current qubit state.
         """
-        return self.__qb_matrix
+        return np.copy(self.__qb_matrix)
 
     def __repr__(self):
         """

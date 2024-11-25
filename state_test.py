@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 
 import qubit_state as qs
+
 """
 A testing python file using the pytest framework for the QubitState class.
 
