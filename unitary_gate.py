@@ -17,7 +17,7 @@ class UnitaryGate:
 
         TODO: fill out rest ..
         """
-        self.matrix = matrix
+        self.matrix = matrix.copy()
         #TODO: FILL IN
 
 
@@ -25,4 +25,3 @@ class UnitaryGate:
         #TODO: fill in
         return self.matrix @ state
     # could add other functions here that output the representation? idk
-
