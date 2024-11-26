@@ -5,7 +5,7 @@ class UnitaryGate:
     A class representing a unitary quantum gate.
 
     This class holds to basic attributes for a gate to be implemented in 
-    quantum computing protocols. This includes methods to find the affect
+    quantum computing protocols. This includes methods to find the effect
     of applying these unitaries to arbitrary quantum states.
 
     Attributes:
@@ -34,19 +34,19 @@ class UnitaryGate:
         # Checks if there was a single two-qubit unitary gate input or two
         # single-qubit inputs
         if matrix2 == None:
-            matrix = matrix1
+            uni_mat = matrix1
 
             # Type check for matrix
-            if not isinstance(matrix, (tuple, list, np.ndarray)):  
+            if not isinstance(uni_mat, (tuple, list, np.ndarray)):  
                 raise TypeError("The unitary gate matrix must be a tuple, "\
                                 "list or NumPy array.")
             
             # Convert list or tuple to np matrix
-            if isinstance(matrix, (list, tuple)):
-                matrix = np.matrix(matrix)
+            if isinstance(uni_mat, (list, tuple)):
+                uni_mat = np.matrix(uni_mat)
             
             # Check dimensions of matrix parameter
-            if matrix.shape != (4,4):
+            if uni_mat.shape != (4,4):
                 raise ValueError("The unitary gate matrix should be a 4x4 matrix.")
         
         else:
@@ -76,17 +76,17 @@ class UnitaryGate:
                                  "a 2x2 matrix.")
         
             # Combine the two single-qubit unitary gates
-            matrix = np.kron(matrix1, matrix2)
+            uni_mat = np.kron(matrix1, matrix2)
 
 
         # Check if the input is unitary
         I_mat = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
-        l = matrix@matrix.getH() == I_mat
+        l = uni_mat@uni_mat.getH() == I_mat
         if not l.all():
             raise ValueError("The unitary gate matrix should be unitary.")
         
         # CHECKKKKKK!!!!
-        self.matrix = np.matrix.copy(matrix) 
+        self.matrix = np.matrix.copy(uni_mat) 
         
 
 
@@ -108,13 +108,34 @@ class UnitaryGate:
     # could add other functions here that output the representation? idk
 
 
-# print(isinstance("Hello", (float, int, str, list, dict, tuple)))
-# m = np.matrix([[0,1], [1j, 0]])
-# print(m.getH())
-# I_mat = np.array([[1, 0], [0,1]])
-# print(m@m.getH())
-# l = m@m.getH() == I_mat
-# print(l.all())
+    def __repr__(self):
+        """
+        Function to override the default 'print()' behaviour in python.
+        Returns the current unitary gate matrix.
+        """
+        return str(self.matrix)
+    
+
+    def dagger(self):
+        """
+        Returns the hermitian conjugate of the input matrix.
+
+        Args:
+            gate (UnitaryGate): Input unitary gate.
+
+        Returns:
+            UnitaryGate: The hermitian conjugate of the input.
+        """
+        return UnitaryGate(self.matrix.getH())
+    
+    
+
+
+
+
 
 u = UnitaryGate([[0,1], [-1j, 0]], [[1,0], [0,1]])
+print(type(u.matrix))
+print(u.matrix)
+print(u.dagger() @ u)
 
