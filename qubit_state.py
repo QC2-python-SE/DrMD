@@ -1,4 +1,5 @@
 import numpy as np
+np.set_printoptions(legacy='1.25')  # For more intuitive float print messages
 
 class QubitState:
     """
@@ -87,6 +88,11 @@ class QubitState:
 
         # Check normalisation
         total_sum = np.sum(np.conjugate(matrix)*matrix)
+
+        # Check for null state
+        if total_sum == 0:
+            raise ValueError("The qubit state must have some non-zero entries.")
+        
         if not np.isclose(total_sum, 1.0, atol=1e-7):  # tolerance for floating-point errors
             matrix = matrix/np.sqrt(total_sum)  # renormalise
         
@@ -134,8 +140,103 @@ class QubitState:
         Returns:
             str: 4x1 matrix of current qubit state.
         """
-        return str(self.peek())
+        return str(np.round(self.peek(),4))  # Rounded for clarity
+    
+    def measureStats(self, to_measure = 12):
+        """
+        A description of the statistics for a  measurement of the qubit
+        state in the computational basis.
 
+        Args:
+            to_measure (int): Which qubit to measure or whether to
+            measure the two-qubit state.
+        
+        Returns:
+            list: The qubit states as a result of the measurement along
+            with the associated probabilities.
+        """
+        # List to hold states and probabilities
+        stats = []
+
+        # Pre-compute the probabilties for each possible basis state.
+        prob = np.round(np.conjugate(self.__qb_matrix)*self.__qb_matrix,4)
+
+        # Check which qubit states to 'measure'
+        match to_measure:
+            # Measure state 1
+            case 1:
+                prob_0 = prob[0] + prob[1]
+                prob_1 = prob[2] + prob[3]
+
+                # Only add non-zero states
+                if not prob_0 == 0:
+                    stats.append((QubitState(np.array([self.__qb_matrix[0],
+                                                        self.__qb_matrix[1], 0, 0])), prob_0))
+                
+                if not prob_1 == 0:
+                    stats.append((QubitState(np.array([0, 0, self.__qb_matrix[2],
+                                                        self.__qb_matrix[3]])), prob_1))
+
+            # Measure state 2
+            case 2:
+                prob_0 = prob[0] + prob[2]
+                prob_1 = prob[1] + prob[3]
+
+                # Only add non-zero states
+                if not prob_0 == 0:
+                    stats.append((QubitState(np.array([self.__qb_matrix[0], 0,
+                                                        self.__qb_matrix[2], 0])), prob_0))
+                
+                if not prob_1 == 0:
+                    stats.append((QubitState(np.array([0, self.__qb_matrix[1], 0,
+                                                        self.__qb_matrix[3]])), prob_1))
+                
+
+            # Measure both states
+            case 12:
+                # Only add non-zero states
+                if not prob[0] == 0:
+                    stats.append((QubitState(np.array([1,0,0,0])), prob[0]))
+                
+                if not prob[1] == 0:
+                    stats.append((QubitState(np.array([0,1,0,0])), prob[1]))
+                
+                if not prob[2] == 0:
+                    stats.append((QubitState(np.array([0,0,1,0])), prob[2]))
+                
+                if not prob[3] == 0:
+                    stats.append((QubitState(np.array([0,0,0,1])), prob[3]))
+
+            # Handle any other user input    
+            case _:
+                raise ValueError("The qubit to be measured must be"\
+                                  "indicated as an integer. Either 1,2"\
+                                    " or 12 (both)")
+        
+        return stats
+    
+    def measureCollapse(self, to_measure = 12):
+        """
+        A measurement of the qubit state in the computational basis.
+        Collapses the current qubit state to one of the z-basis states.
+
+        Args:
+            to_measure (int): Which qubit to measure or whether to
+            measure the two-qubit state.
+        
+        Returns:
+            QubitState: The qubit state as a result of the measurement.
+        """
+        stats = self.measureStats(to_measure)
+
+        # Extract QubitStates and probabilties from stats list
+        states, probs = zip(*stats)
+
+        # Randomly choose measurement state based on z-basis probabilities
+        self.__qb_matrix = np.random.choice(states, p=probs).peek()
+
+        # Return a QubitState object
+        return self.copy()
     
 
     
