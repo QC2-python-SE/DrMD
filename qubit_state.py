@@ -86,9 +86,9 @@ class QubitState:
         self.__qb_init = matrix  # storing initial state in private variable
 
         # Check normalisation
-        total_sum = np.sum(matrix)
+        total_sum = np.sum(np.conjugate(matrix)*matrix)
         if not np.isclose(total_sum, 1.0, atol=1e-7):  # tolerance for floating-point errors
-            matrix = matrix/total_sum  # renormalise
+            matrix = matrix/np.sqrt(total_sum)  # renormalise
         
         self.__qb_matrix = matrix
 
@@ -135,39 +135,6 @@ class QubitState:
             str: 4x1 matrix of current qubit state.
         """
         return str(self.peek())
-    
-    def measure(self, to_measure = 12):
-        """
-        A measurement of the qubit state in the computational basis.
-
-        Args:
-            to_measure (int): Which qubit to measure or whether to
-            measure the two-qubit state.
-        
-        Returns:
-            str: The z-basis state as a result of the measurement.
-        """
-
-        return_state = None
-        match to_measure:
-            case 1:
-                return_state = str(np.random.choice(("|0>","|1>"),p=np.array([
-                    self.__qb_matrix[0] + self.__qb_matrix[1], self.__qb_matrix[2]
-                      + self.__qb_matrix[3]])))
-            case 2:
-                return_state = str(np.random.choice(("|0>","|1>"),p=np.array([
-                    self.__qb_matrix[0] + self.__qb_matrix[2], self.__qb_matrix[1]
-                      + self.__qb_matrix[3]])))
-            case 12:
-                return_state = str(np.random.choice(("|00>","|01>",
-                                                     "|10>","|11>"),
-                                                     p=self.__qb_matrix))
-            case _:
-                raise ValueError("The qubit to be measured must be"\
-                                  "indicated as an integer. Either 1,2"\
-                                    " or 12 (both)")
-        
-        return return_state
 
     
 
