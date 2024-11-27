@@ -137,5 +137,4 @@ class UnitaryGate:
 u = UnitaryGate([[0,1], [-1j, 0]], [[1,0], [0,1]])
 print(type(u.matrix))
 print(u.matrix)
-print(u.dagger() @ u)
 
