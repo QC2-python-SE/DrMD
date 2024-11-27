@@ -19,19 +19,19 @@ def test_onequbit():
     # Test conversion to numpy array for tuple and list
     qubit_init = [0.5,0.5,0,0]  # list
     q_state = qs.QubitState(qubit_init)
-    assert np.allclose(q_state.peek(), np.array([0.5,0.5,0,0])) == True
+    assert np.allclose(q_state.peek(), np.sqrt(np.array([0.5,0.5,0,0])))
 
     qubit_init = (0.5,0.5,0,0)  # tuple
     q_state = qs.QubitState(qubit_init)
-    assert np.allclose(q_state.peek(), np.array([0.5,0.5,0,0])) == True
+    assert np.allclose(q_state.peek(), np.sqrt(np.array([0.5,0.5,0,0])))
 
     # Test normalisation
     qubit_init = [1,1,0,0]
     q_state = qs.QubitState(qubit_init)
-    assert np.allclose(q_state.peek(), np.array([0.5,0.5,0,0])) == True
+    assert np.allclose(q_state.peek(), np.sqrt(np.array([0.5,0.5,0,0])))
 
     # Test initial state save
-    assert np.allclose(q_state.get_initial(), np.array([1,1,0,0])) == True
+    assert np.allclose(q_state.get_initial(), np.array([1,1,0,0]))
 
     # Test wrong input type
     with pytest.raises(TypeError, match = "The qubit state matrix must be "\
@@ -43,6 +43,36 @@ def test_onequbit():
                        "a 4x1 matrix."):
         qs.QubitState([0,0,0])
 
+    # Test an empty qubit state input
+    with pytest.raises(ValueError, match = "The qubit state must have"\
+                       " some non-zero entries."):
+        qs.QubitState([0,0,0,0])
+    
+    # Test copy function to ensure a new object is created
+    q_state_copy = q_state.copy()
+    assert not q_state_copy is q_state
+
+    # Test measurement on both qubits
+    states, probs = zip(*q_state.measureStats(12))
+    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
+    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
+    assert np.isclose(probs[0], 0.5)
+    assert np.isclose(probs[1], 0.5)
+
+    # Test measurement on qubit 1
+    states, probs = zip(*q_state.measureStats(1))
+    assert np.allclose(states[0].peek(), np.array([0.7071,0.7071,0,0]))
+    assert np.isclose(probs[0], 1.0)
+
+    # Test measurement on qubit 2
+    states, probs = zip(*q_state.measureStats(2))
+    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
+    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
+    assert np.isclose(probs[0], 0.5)
+    assert np.isclose(probs[1], 0.5)
+
+
+
 def test_twoqubit():
     """
     Function to test the construction of QubitState object for the input
@@ -52,15 +82,15 @@ def test_twoqubit():
     qubit_init_1 = [1,1]  # list
     qubit_init_2 = [1,0]
     q_state = qs.QubitState(qubit_init_1, qubit_init_2)
-    assert np.allclose(q_state.peek(), np.array([0.5,0,0.5,0])) == True
+    assert np.allclose(q_state.peek(), np.sqrt(np.array([0.5,0,0.5,0])))
 
     qubit_init_1 = (1,1)  # tuple
     qubit_init_2 = (1,0)
     q_state = qs.QubitState(qubit_init_1, qubit_init_2)
-    assert np.allclose(q_state.peek(), np.array([0.5,0,0.5,0])) == True
+    assert np.allclose(q_state.peek(), np.sqrt(np.array([0.5,0,0.5,0])))
 
     # Test initial state save
-    assert np.allclose(q_state.get_initial(), np.array([1,0,1,0])) == True
+    assert np.allclose(q_state.get_initial(), np.array([1,0,1,0]))
 
     # Test wrong input type for both inputs
     with pytest.raises(TypeError, match = "The first qubit state matrix "\
@@ -80,3 +110,8 @@ def test_twoqubit():
     with pytest.raises(ValueError, match = "The second qubit state matrix should be "\
                        "a 2x1 matrix."):
         qs.QubitState((1,0), [0,0,0])
+    
+    # Test an empty qubit state input
+    with pytest.raises(ValueError, match = "The qubit state must have"\
+                       " some non-zero entries."):
+        qs.QubitState([0,0],[0,0])
