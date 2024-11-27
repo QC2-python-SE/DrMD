@@ -33,7 +33,7 @@ class UnitaryGate:
         """
         # Checks if there was a single two-qubit unitary gate input or two
         # single-qubit inputs
-        if matrix2 == None:
+        if type(matrix2) == type(None):
             uni_mat = matrix1
 
             # Type check for matrix
@@ -60,10 +60,10 @@ class UnitaryGate:
                                 "tuple, list or NumPy array.")
             
             # Convert list or tuple to np matrix
-            if isinstance(matrix1, (list, tuple)):
+            if isinstance(matrix1, (list, tuple, np.ndarray)):
                 matrix1 = np.matrix(matrix1)
 
-            if isinstance(matrix2, (list, tuple)):
+            if isinstance(matrix2, (list, tuple, np.ndarray)):
                 matrix2 = np.matrix(matrix2)
             
             # Check dimensions of matrix parameters
