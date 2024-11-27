@@ -43,6 +43,12 @@ def test_onequbit():
                        "a 4x1 matrix."):
         qs.QubitState([0,0,0])
 
+    # Test an empty qubit state input
+    with pytest.raises(ValueError, match = "The qubit state must have"\
+                       " some non-zero entries."):
+        qs.QubitState([0,0,0,0])
+
+
 def test_twoqubit():
     """
     Function to test the construction of QubitState object for the input
@@ -80,3 +86,8 @@ def test_twoqubit():
     with pytest.raises(ValueError, match = "The second qubit state matrix should be "\
                        "a 2x1 matrix."):
         qs.QubitState((1,0), [0,0,0])
+    
+    # Test an empty qubit state input
+    with pytest.raises(ValueError, match = "The qubit state must have"\
+                       " some non-zero entries."):
+        qs.QubitState([0,0],[0,0])
