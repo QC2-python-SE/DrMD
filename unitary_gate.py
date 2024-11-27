@@ -42,7 +42,7 @@ class UnitaryGate:
                                 "list or NumPy array.")
             
             # Convert list or tuple to np matrix
-            if isinstance(uni_mat, (list, tuple)):
+            if isinstance(uni_mat, (list, tuple, np.ndarray)):
                 uni_mat = np.matrix(uni_mat)
             
             # Check dimensions of matrix parameter
