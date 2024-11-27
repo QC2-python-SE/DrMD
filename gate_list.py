@@ -32,7 +32,7 @@ x2 = unitary_gate.UnitaryGate(np.kron(I_mat,X_mat))
 y1 = unitary_gate.UnitaryGate(np.kron(Y_mat,I_mat))
 y2 = unitary_gate.UnitaryGate(np.kron(I_mat,Y_mat))
 z1 = unitary_gate.UnitaryGate(np.kron(Z_mat,I_mat))
-z2 = unitary_gate.UnitaryGate(np.kron(I_mat,X_mat))
+z2 = unitary_gate.UnitaryGate(np.kron(I_mat,Z_mat))
 
 hadamard1 = unitary_gate.UnitaryGate(np.kron(H_mat,I_mat))
 hadamard2 = unitary_gate.UnitaryGate(np.kron(I_mat,H_mat))
