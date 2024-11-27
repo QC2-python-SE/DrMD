@@ -52,6 +52,26 @@ def test_onequbit():
     q_state_copy = q_state.copy()
     assert not q_state_copy is q_state
 
+    # Test measurement on both qubits
+    states, probs = zip(*q_state.measureStats(12))
+    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
+    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
+    assert np.isclose(probs[0], 0.5)
+    assert np.isclose(probs[1], 0.5)
+
+    # Test measurement on qubit 1
+    states, probs = zip(*q_state.measureStats(1))
+    assert np.allclose(states[0].peek(), np.array([0.7071,0.7071,0,0]))
+    assert np.isclose(probs[0], 1.0)
+
+    # Test measurement on qubit 2
+    states, probs = zip(*q_state.measureStats(2))
+    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
+    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
+    assert np.isclose(probs[0], 0.5)
+    assert np.isclose(probs[1], 0.5)
+
+
 
 def test_twoqubit():
     """
@@ -95,7 +115,3 @@ def test_twoqubit():
     with pytest.raises(ValueError, match = "The qubit state must have"\
                        " some non-zero entries."):
         qs.QubitState([0,0],[0,0])
-
-    # Test copy function to ensure a new object is created
-    q_state_copy = q_state.copy()
-    assert not q_state_copy is q_state
