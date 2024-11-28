@@ -1,20 +1,23 @@
-import gate_list as gl
-from unitary_gate import UnitaryGate
-from qubit_state import QubitState
-
 '''
 A testing python file that has been designed to ensure that the constructor
 as well as the functions apply and dag in the UnitaryGate class operate as 
 expected.
 '''
 
+import gate_list as gl
+from unitary_gate import UnitaryGate
+from qubit_state import QubitState
+
 def test_construction():
     '''
     Function to test the error raising in the constructor of the UnitaryGate
     class. Errors for constructing an operator that is not a tuple, list or
     NumPy array is flagged to ensure the appropriate error is encountered.
+    This function also ensures the matrices are th approriate size for 
+    generating an overall two qubit operation.
 
-
+    This is done for both the two qubit gate input and the two separate one
+    qubit gate inputs.
     '''
     with pytest.raises(TypeError, match = "The unitary gate matrix must be a"\
                        " tuple, list or NumPy array."):
@@ -23,6 +26,24 @@ def test_construction():
     with pytest.raises(ValueError, match = "The unitary gate matrix should "\
                        "be a 4x4 matrix."):
         UnitaryGate(np.array([[1, 0, 0, 0], [0, 1, 0, 0]]))
+
+    with pytest.raises(TypeError, match = "The first unitary gate matrix "\
+                       "must be a tuple, list or NumPy array."):
+        UnitaryGate("Error inducing input", gl.H_mat)
+
+    with pytest.raises(TypeError, match = "The second unitary gate matrix "\
+                       "must be a tuple, list or NumPy array."):
+        UnitaryGate(gl.H_mat, "Error inducing input")
+
+    with pytest.raises(ValueError, match = "The first unitary gate matrix "\
+                       "should be a 2x2 matrix."):
+        UnitaryGate(gl.hadamard1, gl.H_mat)
+
+    with pytest.raises(ValueError, match = "The second unitary gate matrix "\
+                       "should be a 2x2 matrix."):
+        UnitaryGate(gl.H_mat, gl.hadamard2)
+
+test_construction
 
 def test_apply():
     '''
