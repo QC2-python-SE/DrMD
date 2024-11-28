@@ -146,6 +146,37 @@ class QubitState:
         temp_qs = QubitState(np.copy(self.__qb_matrix))
         return temp_qs
     
+    def compare(self, other_state):
+        """
+        Function to compare two QubitState objects or to compare
+        current QubitState object with a qubit array.
+
+        Args:
+            other_state (QubitState or valid constructor arguments): Qubit
+            state to compare against.
+        Returns:
+            bool: Outcome of comparison.
+        """
+        try:
+            # Attempt to create a QubitState object, suppressing any errors raised inside
+            q_state_other = None
+            try:
+                q_state_other = QubitState(other_state)
+            except:
+                pass  # Suppress any exception raised by the QubitState constructor
+
+            if q_state_other is None:
+                # Raise an error if QubitState could not be constructed
+                raise ValueError("Comparison state needs to be a valid numerical qubit"\
+                                " input state as a QubitState, NumPy array, list or tuple.")
+        except ValueError as error:
+            # Reraise ValueError to ensure external handling aligns with expected behavior
+            raise error
+
+        # Perform the comparison if no exception was raised
+        return np.allclose(self.peek(), q_state_other.peek())
+
+    
     def set_state(self, matrix1, matrix2 = None):
         """
         Function that users can call to change the qubit state.
