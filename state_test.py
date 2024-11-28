@@ -37,6 +37,11 @@ def test_onequbit():
     with pytest.raises(TypeError, match = "The qubit state matrix must be "\
                        "a tuple, list or NumPy array."):
         qs.QubitState("error-worthy.")
+    
+    # Test wrong input element type
+    with pytest.raises(TypeError, match = "All elements of the input "\
+                       "state must be either int or float."):
+        qs.QubitState(['a','b','c',0])
 
     # Test wrong two-qubit matrix input size
     with pytest.raises(ValueError, match = "The qubit state matrix should be "\
@@ -71,6 +76,9 @@ def test_onequbit():
     assert np.isclose(probs[0], 0.5)
     assert np.isclose(probs[1], 0.5)
 
+    # Test set functionality
+    assert np.allclose(q_state.set_state([0,0,0,1]), np.array([0,0,0,1]))
+
 
 
 def test_twoqubit():
@@ -100,6 +108,15 @@ def test_twoqubit():
     with pytest.raises(TypeError, match = "The second qubit state matrix "\
                        "must be a tuple, list or NumPy array."):
         qs.QubitState((1,0),"worthy.")
+    
+    # Test wrong input element type
+    with pytest.raises(TypeError, match = "All elements of the input "\
+                       "state must be either int or float."):
+        qs.QubitState(['a','b'],[1,0])
+
+    with pytest.raises(TypeError, match = "All elements of the input "\
+                       "state must be either int or float."):
+        qs.QubitState([1,0],['c','d'])
 
     # Test wrong first qubit matrix input size
     with pytest.raises(ValueError, match = "The first qubit state matrix should be "\
