@@ -1,5 +1,5 @@
-import gate_list
-import unitary_gate
+import gate_list as gl
+from unitary_gate import UnitaryGate as ug
 
 '''
 A testing python file that has been designed to ensure that apply function
@@ -17,18 +17,18 @@ def test_apply():
     states.
     '''
     #Perform a CNOT on |10> to get |11> 
-    assert (unitary_gate.UnitaryGate.apply(gate_list.cnot, [0,0,1,0]) == [0,0,0,1]).all()
+    assert (ug.apply(gl.cnot, [0,0,1,0]) == [0,0,0,1]).all()
     #Perform X1 on |00> to get |10>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.x1, [1,0,0,0]) == [0,0,1,0]).all()
+    assert (ug.apply(gl.x1, [1,0,0,0]) == [0,0,1,0]).all()
     #Perform X2 on |10> to get |11>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.x2, [0,0,1,0]) == [0,0,0,1]).all()
+    assert (ug.apply(gl.x2, [0,0,1,0]) == [0,0,0,1]).all()
     #Perform Y1 on |10> to get -i|00>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.y1, [0,0,1,0]) == [-1.j,0,0,0]).all()
+    assert (ug.apply(gl.y1, [0,0,1,0]) == [-1.j,0,0,0]).all()
     #Perform Y2 on |10> to get i|11>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.y2, [0,0,1,0]) == [0,0,0,1.j]).all()
+    assert (ug.apply(gl.y2, [0,0,1,0]) == [0,0,0,1.j]).all()
     #Perform Z1 on |10> to get -|10>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.z1, [0,0,1,0]) == [0,0,-1,0]).all()
+    assert (ug.apply(gl.z1, [0,0,1,0]) == [0,0,-1,0]).all()
     #Perform Z2 on |10> to get |10> 
-    assert (unitary_gate.UnitaryGate.apply(gate_list.z2, [0,0,1,0]) == [0,0,1,0]).all() 
+    assert (ug.apply(gl.z2, [0,0,1,0]) == [0,0,1,0]).all() 
 
 test_apply()
