@@ -1,4 +1,8 @@
 import numpy as np
+from typing import TypeVar
+from qubit_state import QubitState
+
+apply_type = TypeVar("state", np.ndarray, QubitState)
 
 class UnitaryGate:
     """
@@ -81,30 +85,41 @@ class UnitaryGate:
 
         # Check if the input is unitary
         I_mat = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
-        l = uni_mat@uni_mat.getH() == I_mat
+        l =  uni_mat@uni_mat.getH() == I_mat 
         if not l.all():
             raise ValueError("The unitary gate matrix should be unitary.")
         
-        # CHECKKKKKK!!!!
         self.matrix = np.matrix.copy(uni_mat) 
         
-
-
-    def apply(self, state):
+    def apply(self, state: apply_type) -> apply_type:
         """
         Applies a unitary gate to a state. 
 
         Args:
-            state (list): Matrix representation for a 2-qubit state.
+            state (QubitState or numpy.ndarray): input state
 
         Returns:
-            numpy.ndarray: The final state.
+            QubitState or numpy.ndarray: final state (same type as input)
         
         Raises:
-            TODO: insert error handling
+            ValueError: if np.array state not of correct size
+            TypeError: if input not QubitState or np.array
         """
 
-        return self.matrix @ state
+        if type(state) == np.ndarray:
+            if state.shape != (4,) or state.ndim != 1:
+                raise(ValueError, "Wrong size of state")
+            
+            return np.array(self.matrix @ state)[0]
+        
+        elif type(state) == QubitState:
+            state_array = state.get_initial()
+            state_array = np.array(self.matrix @ state_array)[0]
+            return QubitState(state_array)
+        
+        else:
+            raise(TypeError, "Input must be numpy.ndarray or QubitState")
+
     # could add other functions here that output the representation? idk
 
 
@@ -127,14 +142,10 @@ class UnitaryGate:
             UnitaryGate: The hermitian conjugate of the input.
         """
         return UnitaryGate(self.matrix.getH())
-    
-    
-
-
-
-
-
-u = UnitaryGate([[0,1], [-1j, 0]], [[1,0], [0,1]])
-print(type(u.matrix))
-print(u.matrix)
-
+ 
+    def copy(self)->'UnitaryGate':
+        """
+        Function that returns pointer deep copy of self.
+        """
+        mat = self.matrix.copy()
+        return UnitaryGate(mat)
