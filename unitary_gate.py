@@ -86,7 +86,7 @@ class UnitaryGate:
             raise ValueError("The unitary gate matrix should be unitary.")
         
         # CHECKKKKKK!!!!
-        self.matrix = np.matrix.copy(uni_mat) 
+        self._matrix = np.matrix.copy(uni_mat) 
         
 
 
@@ -103,8 +103,8 @@ class UnitaryGate:
         Raises:
             TODO: insert error handling
         """
-
-        return self.matrix @ state
+        
+        return self._matrix @ state
     # could add other functions here that output the representation? idk
 
 
@@ -113,7 +113,7 @@ class UnitaryGate:
         Function to override the default 'print()' behaviour in python.
         Returns the current unitary gate matrix.
         """
-        return str(self.matrix)
+        return str(self._matrix)
     
 
     def dagger(self):
@@ -126,9 +126,15 @@ class UnitaryGate:
         Returns:
             UnitaryGate: The hermitian conjugate of the input.
         """
-        return UnitaryGate(self.matrix.getH())
+        return UnitaryGate(self._matrix.getH())
     
     
+    def copy(self)->'UnitaryGate':
+        """
+        Function that returns pointer deep copy of current object.
+        """
+        uni_mat = self._matrix.copy()
+        return UnitaryGate(uni_mat)
 
 
 
