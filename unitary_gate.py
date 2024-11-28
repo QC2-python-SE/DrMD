@@ -101,9 +101,23 @@ class UnitaryGate:
             numpy.ndarray: The final state.
         
         Raises:
-            TODO: insert error handling
+            
+            
         """
+        # Raise error if the input matrix is not square
+        if self.shape[0] != self.shape[1]:
+            raise ValueError("Input must be a square matrix.")
 
+        # Raise error if the input matrix is not unitary
+        if not np.allclose(np.conjugate(self).T @ self, 
+                           np.eye(self.shape[0])):
+            raise ValueError("Input is not a unitary matrix.")
+        
+        # Raise error if the input state is not a 
+        if len(state) != self.shape[0]:
+            raise ValueError("The state dimension is of a different dimension than the operator.") 
+            #idk how to make it run onto the next line
+        
         return self.matrix @ state
     # could add other functions here that output the representation? idk
 
