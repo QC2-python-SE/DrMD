@@ -76,6 +76,9 @@ def test_onequbit():
     assert np.isclose(probs[0], 0.5)
     assert np.isclose(probs[1], 0.5)
 
+    # Test set functionality
+    assert np.allclose(q_state.set_state([0,0,0,1]), np.array([0,0,0,1]))
+
 
 
 def test_twoqubit():

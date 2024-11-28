@@ -145,6 +145,26 @@ class QubitState:
         """
         temp_qs = QubitState(np.copy(self.__qb_matrix))
         return temp_qs
+    
+    def set_state(self, matrix1, matrix2 = None):
+        """
+        Function that users can call to change the qubit state.
+        Re-calls the constructor internally, to ensure all appropriate
+        error handling is performed.
+
+        Args:
+            matrix1 (list): Matrix representation for the qubit state, or
+            only first qubit state.
+            matrix2 (list): A 2x1 matrix representation for the
+            second qubit state, if necessary.
+
+        Returns:
+            numpy.ndarray: 4x1 array qubit state representation.
+        """
+        # Call the constructor to internally set the new qubit state.
+        self.__init__(matrix1, matrix2)
+
+        return self.peek()
 
     def __repr__(self):
         """
