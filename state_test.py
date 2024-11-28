@@ -52,33 +52,6 @@ def test_onequbit():
     with pytest.raises(ValueError, match = "The qubit state must have"\
                        " some non-zero entries."):
         qs.QubitState([0,0,0,0])
-    
-    # Test copy function to ensure a new object is created
-    q_state_copy = q_state.copy()
-    assert not q_state_copy is q_state
-
-    # Test measurement on both qubits
-    states, probs = zip(*q_state.measureStats(12))
-    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
-    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
-    assert np.isclose(probs[0], 0.5)
-    assert np.isclose(probs[1], 0.5)
-
-    # Test measurement on qubit 1
-    states, probs = zip(*q_state.measureStats(1))
-    assert np.allclose(states[0].peek(), np.array([0.7071,0.7071,0,0]))
-    assert np.isclose(probs[0], 1.0)
-
-    # Test measurement on qubit 2
-    states, probs = zip(*q_state.measureStats(2))
-    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
-    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
-    assert np.isclose(probs[0], 0.5)
-    assert np.isclose(probs[1], 0.5)
-
-    # Test set functionality
-    assert np.allclose(q_state.set_state([0,0,0,1]), np.array([0,0,0,1]))
-
 
 
 def test_twoqubit():
@@ -132,3 +105,63 @@ def test_twoqubit():
     with pytest.raises(ValueError, match = "The qubit state must have"\
                        " some non-zero entries."):
         qs.QubitState([0,0],[0,0])
+
+def test_copy():
+    """
+    Function to test the copy function, making sure that a new object
+    is created and not comparing reference pointers.
+    """
+    q_state = qs.QubitState([1,0,1,0])
+    q_state_copy = q_state.copy()
+    assert not q_state_copy is q_state
+
+def test_measurements():
+    """
+    Function to test measurement of qubit states. Ensuring that both
+    the two-qubit measurements and single-qubit measurements return
+    expected outcomes.
+    """
+    q_state = qs.QubitState([1,1,0,0])
+
+    # Test measurement on both qubits
+    states, probs = zip(*q_state.measureStats(12))
+    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
+    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
+    assert np.isclose(probs[0], 0.5)
+    assert np.isclose(probs[1], 0.5)
+
+    # Test measurement on qubit 1
+    states, probs = zip(*q_state.measureStats(1))
+    assert np.allclose(states[0].peek(), np.array([0.7071,0.7071,0,0]))
+    assert np.isclose(probs[0], 1.0)
+
+    # Test measurement on qubit 2
+    states, probs = zip(*q_state.measureStats(2))
+    assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
+    assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
+    assert np.isclose(probs[0], 0.5)
+    assert np.isclose(probs[1], 0.5)
+
+def test_set():
+    """
+    Function to test the modification of a qubit state after initialisation.
+    """
+    q_state = qs.QubitState([1,1,0,0])
+
+    assert np.allclose(q_state.set_state([0,0,0,1]), np.array([0,0,0,1]))
+
+def test_compare():
+    """
+    Function to test the qubit state comparisons, ensuring that the object
+    contents are equal, not the reference pointers.
+    """
+    q_state = qs.QubitState([1,1,0,0])
+
+    # Test comparison
+    assert q_state.compare((1,1,0,0))
+
+    # Test error handling for invalid comparison state
+    with pytest.raises(ValueError, match = "Comparison state needs to be a valid numerical qubit"\
+                                " input state as a QubitState, NumPy array, list or tuple."):
+        q_state.compare("error")
+    
