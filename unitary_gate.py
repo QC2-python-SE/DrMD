@@ -1,6 +1,7 @@
 import numpy as np
 from typing import TypeVar
 from qubit_state import QubitState
+from numpy import allclose
 
 apply_type = TypeVar("state", np.ndarray, QubitState)
 
@@ -85,8 +86,8 @@ class UnitaryGate:
 
         # Check if the input is unitary
         I_mat = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
-        l =  uni_mat@uni_mat.getH() == I_mat 
-        if not l.all():
+        l =  uni_mat@uni_mat.getH()
+        if not allclose(l, I_mat, atol = 1.e-5):
             raise ValueError("The unitary gate matrix should be unitary.")
         
         self._matrix = np.matrix.copy(uni_mat) 
@@ -120,12 +121,10 @@ class UnitaryGate:
         else:
             raise(TypeError, "Input must be numpy.ndarray or QubitState")
 
-    # could add other functions here that output the representation? idk
-
 
     def __repr__(self):
         """
-        Function to override the default 'print()' behaviour in python.
+        Overrides the default 'print()' behaviour in python.
         Returns the current unitary gate matrix.
         """
         return str(self._matrix)
@@ -135,17 +134,34 @@ class UnitaryGate:
         """
         Returns the hermitian conjugate of the input matrix.
 
-        Args:
-            gate (UnitaryGate): Input unitary gate.
-
         Returns:
-            UnitaryGate: The hermitian conjugate of the input.
+            UnitaryGate: the hermitian conjugate of the input.
         """
         return UnitaryGate(self._matrix.getH())
  
+
     def copy(self)->'UnitaryGate':
         """
-        Function that returns pointer deep copy of self.
+        Returns pointer deep copy of self.
         """
+
         mat = self._matrix.copy()
         return UnitaryGate(mat)
+    
+
+    def compare(self, gate) -> bool:
+        """
+        Returns True if the two gates are the same.
+
+        Args:
+            gate (UnitaryGate): input unitary gate.
+
+        Returns:
+            Boolean: if the two gates are the same.
+        """
+        mat1 = gate._matrix
+        mat2 = self._matrix
+        return allclose(mat1, mat2, atol = 1.e-5)
+        
+
+  
