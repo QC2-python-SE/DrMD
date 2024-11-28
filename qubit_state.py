@@ -47,11 +47,6 @@ class QubitState:
                 raise TypeError("The qubit state matrix must be a tuple, "\
                                 "list or NumPy array.")
             
-            # Type check for each element in the input states
-            if not all(isinstance(item, (int, float)) for row in matrix for item in row):
-                raise TypeError("All elements of the input state must be either int or float.")
-
-            
             # Convert list or tuple to np array
             if isinstance(matrix, (list, tuple)):
                 matrix = np.array(matrix)
@@ -59,6 +54,11 @@ class QubitState:
             # Check dimensions of matrix parameter
             if matrix.ndim != 1 or matrix.shape != (4,):
                 raise ValueError("The qubit state matrix should be a 4x1 matrix.")
+            
+            # Type check for each element in the input states (must be numeric)
+            if not np.issubdtype(matrix.dtype, np.number):
+                raise TypeError("All elements of the input "\
+                                "state must be either int or float.")
         
         else:
             # Type check for matrices
@@ -69,13 +69,6 @@ class QubitState:
             if not isinstance(matrix2, (tuple, list, np.ndarray)):  
                 raise TypeError("The second qubit state matrix must be a "\
                                 "tuple, list or NumPy array.")
-            
-            # Type check for each element in the input states
-            if not all(isinstance(item, (int, float)) for row in matrix1 for item in row):
-                raise TypeError("All elements of the input state must be either int or float.")
-            
-            if not all(isinstance(item, (int, float)) for row in matrix2 for item in row):
-                raise TypeError("All elements of the input state must be either int or float.")
             
             # Convert list or tuple to np array
             if isinstance(matrix1, (list, tuple)):
@@ -92,6 +85,15 @@ class QubitState:
             if matrix2.ndim != 1 or matrix2.shape != (2,):
                 raise ValueError("The second qubit state matrix should be "\
                                  "a 2x1 matrix.")
+            
+            # Type check for each element in the input states (must be numeric)
+            if not np.issubdtype(matrix1.dtype, np.number):
+                raise TypeError("All elements of the input "\
+                                "state must be either int or float.")
+            
+            if not np.issubdtype(matrix2.dtype, np.number):
+                raise TypeError("All elements of the input "\
+                                "state must be either int or float.")
         
             # Combine the two single-qubit states
             matrix = np.kron(matrix1, matrix2)

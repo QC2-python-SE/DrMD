@@ -39,8 +39,8 @@ def test_onequbit():
         qs.QubitState("error-worthy.")
     
     # Test wrong input element type
-    with pytest.raises(TypeError, match = "All elements of the input state"\
-                       " must be either int or float."):
+    with pytest.raises(TypeError, match = "All elements of the input "\
+                       "state must be either int or float."):
         qs.QubitState(['a','b','c',0])
 
     # Test wrong two-qubit matrix input size
@@ -107,12 +107,12 @@ def test_twoqubit():
         qs.QubitState((1,0),"worthy.")
     
     # Test wrong input element type
-    with pytest.raises(TypeError, match = "All elements of the input state"\
-                       " must be either int or float."):
+    with pytest.raises(TypeError, match = "All elements of the input "\
+                       "state must be either int or float."):
         qs.QubitState(['a','b'],[1,0])
 
-    with pytest.raises(TypeError, match = "All elements of the input state"\
-                       " must be either int or float."):
+    with pytest.raises(TypeError, match = "All elements of the input "\
+                       "state must be either int or float."):
         qs.QubitState([1,0],['c','d'])
 
     # Test wrong first qubit matrix input size
