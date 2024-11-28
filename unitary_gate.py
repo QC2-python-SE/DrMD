@@ -1,5 +1,8 @@
 import numpy as np
+from typing import TypeVar
 from qubit_state import QubitState
+
+apply_type = TypeVar("state", np.ndarray, QubitState)
 
 class UnitaryGate:
     """
@@ -86,24 +89,27 @@ class UnitaryGate:
         if not l.all():
             raise ValueError("The unitary gate matrix should be unitary.")
         
-        # CHECKKKKKK!!!!
         self.matrix = np.matrix.copy(uni_mat) 
         
-    def apply(self, state):
+    def apply(self, state: apply_type) -> apply_type:
         """
         Applies a unitary gate to a state. 
 
         Args:
-            state (list): Matrix representation for a 2-qubit state.
+            state (QubitState or numpy.ndarray): input state
 
         Returns:
-            numpy.ndarray: The final state.
+            QubitState or numpy.ndarray: final state (same type as input)
         
         Raises:
-            TODO: insert error handling
+            ValueError: if np.array state not of correct size
+            TypeError: if input not QubitState or np.array
         """
 
         if type(state) == np.ndarray:
+            if state.shape != (4,) or state.ndim != 1:
+                raise(ValueError, "Wrong size of state")
+            
             return np.array(self.matrix @ state)[0]
         
         elif type(state) == QubitState:
@@ -112,7 +118,7 @@ class UnitaryGate:
             return QubitState(state_array)
         
         else:
-            raise(TypeError, "Input must either be array or QubitState")
+            raise(TypeError, "Input must be numpy.ndarray or QubitState")
 
     # could add other functions here that output the representation? idk
 
@@ -139,7 +145,7 @@ class UnitaryGate:
  
     def copy(self)->'UnitaryGate':
         """
-        Function that returns pointer deep copy of current object.
+        Function that returns pointer deep copy of self.
         """
         mat = self.matrix.copy()
         return UnitaryGate(mat)

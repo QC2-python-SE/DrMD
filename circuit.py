@@ -140,18 +140,6 @@ class Circuit:
         """Returns number of gates in (depth of) circuit"""
         return len(self._gates)
 
-    def copy(self):
-        """
-        Creates and returns deep copy of circuit.
-
-        Returns:
-            Circuit: deep copy of self
-        """
-        gates = self.__deepcopy(self._gates)
-
-        copied = Circuit(gates)
-        return copied
-
     def merge(self, circuit: 'Circuit'):
         """
         Modify current circuit by appending deep copy 
@@ -176,6 +164,18 @@ class Circuit:
 
         return self
     
+    def copy(self):
+        """
+        Creates and returns deep copy of circuit.
+
+        Returns:
+            Circuit: deep copy of self
+        """
+        gates = self.__deepcopy(self._gates)
+
+        copied = Circuit(gates)
+        return copied
+    
     def apply(self, in_state: state_type) -> state_type:
         """
         Apply circuit to a state and return output state.
@@ -192,19 +192,11 @@ class Circuit:
             ValueError: if np.array state not of correct size
             TypeError: if input not QubitState or np.array
         """
-        #TODO: correct (clean) code after Mai solves the unitary_gate 
-
-        if not isinstance(in_state, (QubitState, np.ndarray)):
-            raise(TypeError, "Input must be a QubitState or numpy.ndarray")
         
-        if type(in_state) == np.ndarray:
-            if in_state.shape != (4,) or in_state.ndim != 1:
-                raise(ValueError, "wrong size of state")
-
         out_state = in_state.copy()  # don't modify input
 
         for unitary in self._gates:
-            out_state = unitary.apply(out_state)
+            out_state = unitary.apply(out_state)  # errors handled here 
             
         return out_state
     
@@ -219,8 +211,10 @@ class Circuit:
         
         print("The gates applied are: ")
 
-        for unitary in self._gates:
-            unitary.print()
+        for unitary in self._gates[:-1]:
+            print(unitary, ", \n")
+        
+        print(self._gates[-1], ".\n")
     
 
         
