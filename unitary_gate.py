@@ -89,7 +89,7 @@ class UnitaryGate:
         if not l.all():
             raise ValueError("The unitary gate matrix should be unitary.")
         
-        self.matrix = np.matrix.copy(uni_mat) 
+        self._matrix = np.matrix.copy(uni_mat) 
         
     def apply(self, state: apply_type) -> apply_type:
         """
@@ -110,11 +110,11 @@ class UnitaryGate:
             if state.shape != (4,) or state.ndim != 1:
                 raise(ValueError, "Wrong size of state")
             
-            return np.array(self.matrix @ state)[0]
+            return np.array(self._matrix @ state)[0]
         
         elif type(state) == QubitState:
             state_array = state.get_initial()
-            state_array = np.array(self.matrix @ state_array)[0]
+            state_array = np.array(self._matrix @ state_array)[0]
             return QubitState(state_array)
         
         else:
@@ -128,7 +128,7 @@ class UnitaryGate:
         Function to override the default 'print()' behaviour in python.
         Returns the current unitary gate matrix.
         """
-        return str(self.matrix)
+        return str(self._matrix)
     
 
     def dagger(self):
@@ -141,11 +141,11 @@ class UnitaryGate:
         Returns:
             UnitaryGate: The hermitian conjugate of the input.
         """
-        return UnitaryGate(self.matrix.getH())
+        return UnitaryGate(self._matrix.getH())
  
     def copy(self)->'UnitaryGate':
         """
         Function that returns pointer deep copy of self.
         """
-        mat = self.matrix.copy()
+        mat = self._matrix.copy()
         return UnitaryGate(mat)
