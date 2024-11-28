@@ -16,12 +16,19 @@ def test_apply():
     is performing matrix multiplication correctly and outputting the correct
     states.
     '''
-    assert (unitary_gate.UnitaryGate.apply(gate_list.cnot, [0,0,1,0]) == [0,0,0,1]).all() #Perform a CNOT on |10> to get |11> 
-    assert (unitary_gate.UnitaryGate.apply(gate_list.x1, [1,0,0,0]) == [0,0,1,0]).all() #Perform X1 on |00> to get |10>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.x2, [0,0,1,0]) == [0,0,0,1]).all() #Perform X2 on |10> to get |11>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.y1, [0,0,1,0]) == [-1.j,0,0,0]).all() #Perform Y1 on |10> to get -i|00>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.y2, [0,0,1,0]) == [0,0,0,1.j]).all() #Perform Y2 on |10> to get i|11>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.z1, [0,0,1,0]) == [0,0,-1,0]).all() #Perform Z1 on |10> to get -|10>
-    assert (unitary_gate.UnitaryGate.apply(gate_list.z2, [0,0,1,0]) == [0,0,1,0]).all() #Perform Z2 on |10> to get |10>
+    #Perform a CNOT on |10> to get |11> 
+    assert (unitary_gate.UnitaryGate.apply(gate_list.cnot, [0,0,1,0]) == [0,0,0,1]).all()
+    #Perform X1 on |00> to get |10>
+    assert (unitary_gate.UnitaryGate.apply(gate_list.x1, [1,0,0,0]) == [0,0,1,0]).all()
+    #Perform X2 on |10> to get |11>
+    assert (unitary_gate.UnitaryGate.apply(gate_list.x2, [0,0,1,0]) == [0,0,0,1]).all()
+    #Perform Y1 on |10> to get -i|00>
+    assert (unitary_gate.UnitaryGate.apply(gate_list.y1, [0,0,1,0]) == [-1.j,0,0,0]).all()
+    #Perform Y2 on |10> to get i|11>
+    assert (unitary_gate.UnitaryGate.apply(gate_list.y2, [0,0,1,0]) == [0,0,0,1.j]).all()
+    #Perform Z1 on |10> to get -|10>
+    assert (unitary_gate.UnitaryGate.apply(gate_list.z1, [0,0,1,0]) == [0,0,-1,0]).all()
+    #Perform Z2 on |10> to get |10> 
+    assert (unitary_gate.UnitaryGate.apply(gate_list.z2, [0,0,1,0]) == [0,0,1,0]).all() 
 
 test_apply()
