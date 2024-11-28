@@ -63,7 +63,7 @@ def test_apply():
     assert (gl.x2.apply(example_ndarray) == [1,0,0,0]).all()
     assert (gl.z1.apply(example_ndarray) == [1,0,0,0]).all()
 
-    assert (gl.y1.apply(example_qubitstate) = [0,0,1.j,0]).all()
+    assert (gl.y1.apply(example_qubitstate) = [0,0,1j,0]).all()
 
     with pytest.raises(ValueError, match = "Wrong size of state"):
         gl.z2.apply([0,0,1])
@@ -72,3 +72,13 @@ def test_apply():
         gl.y1.apply('Error inducing input')
 
 test_apply()
+
+def test_dag():
+    '''
+    Function that tests the dag function by taking an example operator
+    and ensuring that it has output the Hermitian matrix.
+    '''
+
+
+
+
