@@ -130,7 +130,7 @@ class UnitaryGate:
         return str(self._matrix)
     
 
-    def dagger(self):
+    def dagger(self) -> 'UnitaryGate':
         """
         Returns the hermitian conjugate of the input matrix.
 
@@ -140,7 +140,7 @@ class UnitaryGate:
         return UnitaryGate(self._matrix.getH())
  
 
-    def copy(self)->'UnitaryGate':
+    def copy(self) -> 'UnitaryGate':
         """
         Returns pointer deep copy of self.
         """
@@ -149,7 +149,7 @@ class UnitaryGate:
         return UnitaryGate(mat)
     
 
-    def compare(self, gate) -> bool:
+    def compare(self, gate: 'UnitaryGate') -> bool:
         """
         Returns True if the two gates are the same.
 
