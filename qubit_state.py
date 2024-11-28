@@ -47,6 +47,11 @@ class QubitState:
                 raise TypeError("The qubit state matrix must be a tuple, "\
                                 "list or NumPy array.")
             
+            # Type check for each element in the input states
+            if not all(isinstance(item, (int, float)) for row in matrix for item in row):
+                raise TypeError("All elements of the input state must be either int or float.")
+
+            
             # Convert list or tuple to np array
             if isinstance(matrix, (list, tuple)):
                 matrix = np.array(matrix)
@@ -64,6 +69,13 @@ class QubitState:
             if not isinstance(matrix2, (tuple, list, np.ndarray)):  
                 raise TypeError("The second qubit state matrix must be a "\
                                 "tuple, list or NumPy array.")
+            
+            # Type check for each element in the input states
+            if not all(isinstance(item, (int, float)) for row in matrix1 for item in row):
+                raise TypeError("All elements of the input state must be either int or float.")
+            
+            if not all(isinstance(item, (int, float)) for row in matrix2 for item in row):
+                raise TypeError("All elements of the input state must be either int or float.")
             
             # Convert list or tuple to np array
             if isinstance(matrix1, (list, tuple)):
@@ -83,6 +95,7 @@ class QubitState:
         
             # Combine the two single-qubit states
             matrix = np.kron(matrix1, matrix2)
+
 
         self.__qb_init = matrix  # storing initial state in private variable
 
