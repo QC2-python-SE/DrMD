@@ -4,6 +4,7 @@ from typing import TypeVar
 import numpy as np
 
 circ_in = TypeVar("circ", list[UnitaryGate], UnitaryGate)
+state_type = TypeVar("state", np.ndarray, QubitState)
 
 class Circuit:
     """
@@ -175,7 +176,7 @@ class Circuit:
 
         return self
     
-    def apply(self, in_state):
+    def apply(self, in_state: state_type) -> state_type:
         """
         Apply circuit to a state and return output state.
         Input state is not modified.
