@@ -77,7 +77,17 @@ def test_dag():
     '''
     Function that tests the dag function by taking an example operator
     and ensuring that it has output the Hermitian matrix.
+
+    We use the simple example of a non-Hermitian unitary being the XZ gate
+    acting on qubit 1. The dagger function should output the Hermitian
+    conjugate of the matrix which has been calculated for comparison by hand.
     '''
+    example = UnitaryGate(np.kron(X_mat @ Z_mat,I_mat))
+    example_hermitianconjugate = UnitaryGate(np.array([[0, -1, 0, 0],[1, 0, 0, 0], 
+                                           [0, 0, 0, -1], [0, 0, 1, 0]]))
+
+    assert (example.dagger() == example_hermitianconjugate).all()
+
 
 
 
