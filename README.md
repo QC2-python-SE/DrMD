@@ -1,12 +1,8 @@
 # 📦 DR MD: Qubits and Unitary Gates
 
-(add your badges here)
-
-> *Your documentation is a direct reflection of your software, so hold it to the same standards.*
-
-
 ## 🌟 Highlights
 
+To come back later (summarise main points of Overview + main sale points)
 - Some functionality made easy!
 - This problem handled
 - etc.
@@ -14,7 +10,9 @@
 
 ## ℹ️ Overview
 
-A paragraph explaining your work, who you are, and why you made it.
+-> Who is the target user (delia has notes from the meeting)
+
+-> Thought process: 1st MVP, current model, future work to be done (what v2 etc)
 
 
 ### ✍️ Authors
@@ -24,17 +22,11 @@ Mention who you are and link to your GitHub or organization's website.
 
 ## 🚀 Usage
 
-*Show off what your software looks like in action! Try to limit it to one-liners if possible and don't delve into API specifics.*
-
-```py
->>> import mypackage
->>> mypackage.do_stuff()
-'Oh yeah!'
-```
-
+RJ: about notebook
 
 ## ⬇️ Installation
 
+FOR DILLON:
 Simple, understandable installation instructions!
 
 ```bash
@@ -48,6 +40,5 @@ And be sure to specify any other minimum requirements like Python versions or op
 
 ## 💭 Feedback and Contributing
 
-Add a link to the Discussions tab in your repo and invite users to open issues for bugs/feature requests.
-
-This is also a great place to invite others to contribute in any ways that make sense for your project. Point people to your DEVELOPMENT and/or CONTRIBUTING guides if you have them.
+Pretend we are a company and want feedback from students 
+(write something flashy: Are a student? Do you have any comments?)
