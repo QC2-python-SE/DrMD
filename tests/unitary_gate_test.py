@@ -7,13 +7,10 @@ The copy and repr functions are tested in test_circuit.py.
 '''
 import pytest
 import numpy as np
-import warnings
 
 import drmd.gate_list as gl
 from drmd.unitary_gate import UnitaryGate
 from drmd.qubit_state import QubitState
-
-warnings.filterwarnings("ignore", category=PendingDeprecationWarning)
 
 def test_construction():
     '''
