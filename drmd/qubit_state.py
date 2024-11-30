@@ -1,6 +1,7 @@
 import numpy as np
 np.set_printoptions(legacy='1.21')  # For more intuitive float print messages
 
+
 class QubitState:
     """
     A class representing a two-qubit state.
