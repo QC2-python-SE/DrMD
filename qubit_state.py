@@ -115,7 +115,6 @@ class QubitState:
         
         self.__qb_matrix = matrix
 
-
     def get_initial(self):
         """
         Function to give the qubit state used to initialise this
@@ -127,7 +126,6 @@ class QubitState:
         """
         return np.copy(self.__qb_init)
     
-
     def peek(self):
         """
         Function to show the current qubit state probabilities in the
@@ -138,7 +136,6 @@ class QubitState:
             numpy.ndarray: 4x1 matrix of current qubit state.
         """
         return np.copy(self.__qb_matrix)
-
 
     def copy(self):
         """
@@ -151,7 +148,6 @@ class QubitState:
         temp_qs = QubitState(np.copy(self.__qb_matrix))
         return temp_qs
     
-
     def compare(self, other_state):
         """
         Function to compare two QubitState objects or to compare
@@ -187,7 +183,6 @@ class QubitState:
         # Perform the comparison if no exception was raised
         return np.allclose(self.peek(), q_state_other.peek())
 
-    
     def set_state(self, matrix1, matrix2 = None):
         """
         Function that users can call to change the qubit state.
@@ -208,7 +203,6 @@ class QubitState:
 
         return self.peek()
 
-
     def __repr__(self):
         """
         Function to override the default 'print()' behaviour in python.
@@ -219,8 +213,7 @@ class QubitState:
             str: 4x1 matrix of current qubit state.
         """
         return str(np.round(self.peek(),4))  # Rounded for clarity
-    
-    
+     
     def measure_stats(self, to_measure = 12):
         """
         A description of the statistics for a  measurement of the qubit
@@ -294,7 +287,6 @@ class QubitState:
         
         return stats
     
-    
     def measure_collapse(self, to_measure = 12):
         """
         A measurement of the qubit state in the computational basis.
@@ -318,9 +310,3 @@ class QubitState:
         # Return a QubitState object
         return self.copy()
     
-
-    
-
-
-    
-

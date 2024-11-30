@@ -23,29 +23,30 @@ def test_construction():
     This is done for both the two qubit gate input and the two separate one
     qubit gate inputs.
     '''
-    with pytest.raises(TypeError, match = "The unitary gate matrix must be a"\
-                       " tuple, list or NumPy array."):
+    with pytest.raises(TypeError, match = ("The unitary gate matrix must be a" +
+                       " tuple, list or NumPy array.")):
         UnitaryGate("Error inducing input")
     
-    with pytest.raises(ValueError, match = "The unitary gate matrix should "\
-                       "be a 4x4 matrix."):
+    with pytest.raises(ValueError, match = ("The unitary gate matrix should " +
+                       "be a 4x4 matrix.")):
         UnitaryGate(np.array([[1, 0, 0, 0], [0, 1, 0, 0]]))
 
-    with pytest.raises(TypeError, match = "The first unitary gate matrix "\
-                       "must be a tuple, list or NumPy array."):
+    with pytest.raises(TypeError, match = ("The first unitary gate matrix " +
+                       "must be a tuple, list or NumPy array.")):
         UnitaryGate("Error inducing input", gl.H_mat)
 
-    with pytest.raises(TypeError, match = "The second unitary gate matrix "\
-                       "must be a tuple, list or NumPy array."):
+    with pytest.raises(TypeError, match = ("The second unitary gate matrix " +
+                       "must be a tuple, list or NumPy array.")):
         UnitaryGate(gl.H_mat, "Error inducing input")
 
-    with pytest.raises(ValueError, match = "The first unitary gate matrix "\
-                       "should be a 2x2 matrix."):
+    with pytest.raises(ValueError, match = ("The first unitary gate matrix " +
+                       "should be a 2x2 matrix.")):
         UnitaryGate(np.random.rand(4, 4), gl.H_mat)
 
-    with pytest.raises(ValueError, match = "The second unitary gate matrix "\
-                       "should be a 2x2 matrix."):
+    with pytest.raises(ValueError, match = ("The second unitary gate matrix " +
+                       "should be a 2x2 matrix.")):
         UnitaryGate(gl.H_mat, np.random.rand(4, 4))
+
 
 def test_apply():
     '''
@@ -92,6 +93,3 @@ def test_dag():
                         [0, 0, 0, 1], [-1, 0, 0, 0], [0, -1, 0, 0]]))
 
     assert example.dagger().compare(example_hermitianconjugate)
-
-
-

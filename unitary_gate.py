@@ -1,8 +1,10 @@
 import numpy as np
-from typing import TypeVar
-from qubit_state import QubitState
 from numpy import allclose
+from typing import TypeVar
 
+from qubit_state import QubitState
+
+# Creates an range of valid input types for testing.
 apply_type = TypeVar("state", np.ndarray, QubitState)
 
 class UnitaryGate:
@@ -14,7 +16,8 @@ class UnitaryGate:
     of applying these unitaries to arbitrary quantum states.
 
     Attributes:
-        matrix_rep (numpy.ndarray): the matrix representation of the unitary gate.
+        matrix_rep (numpy.ndarray): The matrix representation of 
+        the unitary gate.
         
     """
 
@@ -43,7 +46,7 @@ class UnitaryGate:
 
             # Type check for matrix
             if not isinstance(uni_mat, (tuple, list, np.ndarray)):  
-                raise TypeError("The unitary gate matrix must be a tuple, "\
+                raise TypeError("The unitary gate matrix must be a tuple, " +
                                 "list or NumPy array.")
             
             # Convert list or tuple to np matrix
@@ -57,11 +60,11 @@ class UnitaryGate:
         else:
             # Type check for matrices
             if not isinstance(matrix1, (tuple, list, np.ndarray)):  
-                raise TypeError("The first unitary gate matrix must be a "\
+                raise TypeError("The first unitary gate matrix must be a " +
                                 "tuple, list or NumPy array.")
 
             if not isinstance(matrix2, (tuple, list, np.ndarray)):  
-                raise TypeError("The second unitary gate matrix must be a "\
+                raise TypeError("The second unitary gate matrix must be a " +
                                 "tuple, list or NumPy array.")
             
             # Convert list or tuple to np matrix
@@ -73,11 +76,11 @@ class UnitaryGate:
             
             # Check dimensions of matrix parameters
             if  matrix1.shape != (2, 2):
-                raise ValueError("The first unitary gate matrix should be "\
+                raise ValueError("The first unitary gate matrix should be " +
                                  "a 2x2 matrix.")
             
             if  matrix2.shape != (2, 2):
-                raise ValueError("The second unitary gate matrix should be "\
+                raise ValueError("The second unitary gate matrix should be " +
                                  "a 2x2 matrix.")
         
             # Combine the two single-qubit unitary gates
@@ -91,20 +94,20 @@ class UnitaryGate:
             raise ValueError("The unitary gate matrix should be unitary.")
         
         self._matrix = np.matrix.copy(uni_mat) 
-        
+
     def apply(self, state: apply_type) -> apply_type:
         """
         Applies a unitary gate to a state. 
 
         Args:
-            state (QubitState or numpy.ndarray): input state
+            state (QubitState or numpy.ndarray): An input qubit state.
 
         Returns:
-            QubitState or numpy.ndarray: final state (same type as input)
+            QubitState or numpy.ndarray: The final state (same type as input).
         
         Raises:
-            ValueError: if np.array state not of correct size
-            TypeError: if input not QubitState or np.array
+            ValueError: If np.array state not of correct size.
+            TypeError: If input not QubitState or np.array.
         """
 
         if type(state) == np.ndarray:
@@ -121,15 +124,15 @@ class UnitaryGate:
         else:
             raise TypeError("Input must be numpy.ndarray or QubitState.")
 
-
     def __repr__(self):
         """
         Overrides the default 'print()' behaviour in python.
-        Returns the current unitary gate matrix.
+
+        Returns: 
+            str: The current unitary gate matrix.
         """
         return str(self._matrix)
     
-
     def dagger(self) -> 'UnitaryGate':
         """
         Returns the hermitian conjugate of the input matrix.
@@ -139,15 +142,16 @@ class UnitaryGate:
         """
         return UnitaryGate(self._matrix.getH())
  
-
     def copy(self) -> 'UnitaryGate':
         """
-        Returns pointer deep copy of self.
+        Creates pointer to deep copy of self.
+
+        Returns:
+            UnitaryGate: Copy of current gate.
         """
 
         mat = self._matrix.copy()
         return UnitaryGate(mat)
-    
 
     def compare(self, gate: 'UnitaryGate') -> bool:
         """
@@ -157,11 +161,9 @@ class UnitaryGate:
             gate (UnitaryGate): input unitary gate.
 
         Returns:
-            Boolean: if the two gates are the same.
+            bool: if the two gates are the same.
         """
         mat1 = gate._matrix
         mat2 = self._matrix
         return allclose(mat1, mat2, atol = 1.e-5)
         
-
-  
