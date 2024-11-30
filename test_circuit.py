@@ -83,7 +83,7 @@ def test_wrong_init():
     by constructor on invalid inputs.
     """
 
-    matrix = gl.CNOT_mat  # Not UnitaryGate object
+    matrix = gl.C1NOT2  # Not UnitaryGate object
 
     # Test only list[UnitaryGate] or UnitaryGate inputs are accepted
     with pytest.raises(TypeError) as notList:
@@ -91,13 +91,13 @@ def test_wrong_init():
         assert str(notList.value) == \
             "Input needs to be a list of elements UnitaryGate"
 
-    gates = [gl.CNOT_mat, None]  # List of matrix objects
+    gates = [gl.C1NOT2, None]  # List of matrix objects
     with pytest.raises(TypeError) as notUni:
         Circuit(gates)
         assert str(notUni.value) == \
             "All elements of input list need to be UnitaryGate"
         
-    gates = (gl.cnot, gl.x1)  # Tuple of UnitaryGate (not list)
+    gates = (gl.CNOT1, gl.X1)  # Tuple of UnitaryGate (not list)
     with pytest.raises(TypeError) as tupleIn:
         Circuit(gates)
         assert str(tupleIn.value) == \
@@ -113,7 +113,7 @@ def test_empty():
     circ = Circuit()
     assert circ.is_empty()
 
-    circ = Circuit(gl.cnot)
+    circ = Circuit(gl.CNOT1)
     assert not circ.is_empty()
 
 
@@ -136,7 +136,7 @@ def test_append():
     """
     
     circ = Circuit()
-    gates = [gl.x1, gl.cnot, gl.hadamard1]
+    gates = [gl.X1, gl.CNOT1, gl.HADAMARD1]
 
     curr_len = circ.size()  # Current depth of circ
 
@@ -157,7 +157,7 @@ def test_append():
 
     # Test error-raising
     with pytest.raises(TypeError) as invalid_append:
-        circ.append(gl.CNOT_mat)  # Try append a matrix
+        circ.append(gl.C1NOT2)  # Try append a matrix
         assert str(invalid_append.value) == \
             "Input must be a UnitaryGate"
 
@@ -167,7 +167,7 @@ def test_pop():
     Function to test that UnitaryGate.pop() mimics 
     behavior of list.pop().
     """
-    gates = [gl.x1, gl.cnot, gl.hadamard1, gl.hadamard2]
+    gates = [gl.X1, gl.CNOT1, gl.HADAMARD1, gl.HADAMARD2]
     circ = Circuit(gates)
 
     # Empty argument
@@ -263,7 +263,7 @@ def test_merge():
     # Test TypeError is properly raised
     circ1 = Circuit()
     with pytest.raises(TypeError) as invalid_in:
-        circ1.merge(gl.CNOT_mat)  # Try append a matrix
+        circ1.merge(gl.C1NOT2)  # Try append a matrix
         assert str(invalid_in.value) == \
             "Merged element must be of type Circuit"
     
@@ -331,7 +331,7 @@ def test_compare():
     Function that tests that .compare() resturns True 
     if and only if the contents of two circuits are identical.
     """
-    gates = [gl.x1, gl.cnot, gl.hadamard1, gl.hadamard2]
+    gates = [gl.X1, gl.CNOT1, gl.HADAMARD1, gl.HADAMARD2]
     circ = Circuit(gates)
 
     # Test error is raised on list input
