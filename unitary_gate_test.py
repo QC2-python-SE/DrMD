@@ -43,7 +43,7 @@ def test_construction():
                        "should be a 2x2 matrix."):
         UnitaryGate(gl.H_mat, gl.hadamard2)
 
-test_construction
+test_construction()
 
 def test_apply():
     '''
@@ -88,7 +88,7 @@ def test_dag():
 
     assert (example.dagger() == example_hermitianconjugate).all()
 
-
+test_dag()
 
 
 
