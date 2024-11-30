@@ -83,8 +83,8 @@ def test_dag():
     conjugate of the matrix which has been calculated for comparison by hand.
     '''
     example = UnitaryGate(np.kron(X_mat @ Z_mat,I_mat))
-    example_hermitianconjugate = UnitaryGate(np.array([[0, -1, 0, 0],[1, 0, 0, 0], 
-                                           [0, 0, 0, -1], [0, 0, 1, 0]]))
+    example_hermitianconjugate = UnitaryGate(np.array([[0, -1, 0, 0],
+                        [1, 0, 0, 0], [0, 0, 0, -1], [0, 0, 1, 0]]))
 
     assert (example.dagger() == example_hermitianconjugate).all()
 
