@@ -30,22 +30,29 @@ Z_mat = np.array([[1, 0], [0, -1]])
 H_mat = 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]])
 
 # define gates
-x1 = unitary_gate.UnitaryGate(np.kron(X_mat,I_mat))
-x2 = unitary_gate.UnitaryGate(np.kron(I_mat,X_mat))
-y1 = unitary_gate.UnitaryGate(np.kron(Y_mat,I_mat))
-y2 = unitary_gate.UnitaryGate(np.kron(I_mat,Y_mat))
-z1 = unitary_gate.UnitaryGate(np.kron(Z_mat,I_mat))
-z2 = unitary_gate.UnitaryGate(np.kron(I_mat,Z_mat))
+X1 = unitary_gate.UnitaryGate(np.kron(X_mat,I_mat))
+X2 = unitary_gate.UnitaryGate(np.kron(I_mat,X_mat))
+Y1 = unitary_gate.UnitaryGate(np.kron(Y_mat,I_mat))
+Y2 = unitary_gate.UnitaryGate(np.kron(I_mat,Y_mat))
+Z1 = unitary_gate.UnitaryGate(np.kron(Z_mat,I_mat))
+Z2 = unitary_gate.UnitaryGate(np.kron(I_mat,Z_mat))
 
-hadamard1 = unitary_gate.UnitaryGate(np.kron(H_mat,I_mat))
-hadamard2 = unitary_gate.UnitaryGate(np.kron(I_mat,H_mat))
+HADAMARD1 = unitary_gate.UnitaryGate(np.kron(H_mat,I_mat))
+HADAMARD2 = unitary_gate.UnitaryGate(np.kron(I_mat,H_mat))
 
 # CNOT gate
 C1NOT2 = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])
 C2NOT1 = np.array([[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]])
 
-cnot1 = unitary_gate.UnitaryGate(C1NOT2)
-cnot2 = unitary_gate.UnitaryGate(C2NOT1)
+CNOT1 = unitary_gate.UnitaryGate(C1NOT2)
+CNOT2 = unitary_gate.UnitaryGate(C2NOT1)
 
 
-# e.g. X = UnitaryGate(X_matrix)
+# Function to list all UnitaryGate objects
+def list_unitary_gates():
+    # Use globals() to get all global variables
+    all_vars = globals()
+    # Filter for instances of UnitaryGate
+    unitary_gate_names = [name for name, var in all_vars.items() if isinstance(var, unitary_gate.UnitaryGate)]
+
+    return unitary_gate_names
