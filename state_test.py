@@ -34,23 +34,23 @@ def test_onequbit():
     assert np.allclose(q_state.get_initial(), np.array([1,1,0,0]))
 
     # Test wrong input type
-    with pytest.raises(TypeError, match = "The qubit state matrix must be "\
-                       "a tuple, list or NumPy array."):
+    with pytest.raises(TypeError, match = ("The qubit state matrix must be " +
+                       "a tuple, list or NumPy array.")):
         qs.QubitState("error-worthy.")
     
     # Test wrong input element type
-    with pytest.raises(TypeError, match = "All elements of the input "\
-                       "state must be either int or float."):
+    with pytest.raises(TypeError, match = ("All elements of the input " +
+                       "state must be either int or float.")):
         qs.QubitState(['a','b','c',0])
 
     # Test wrong two-qubit matrix input size
-    with pytest.raises(ValueError, match = "The qubit state matrix should be "\
-                       "a 4x1 matrix."):
+    with pytest.raises(ValueError, match = ("The qubit state matrix should " +
+                       "be a 4x1 matrix.")):
         qs.QubitState([0,0,0])
 
     # Test an empty qubit state input
-    with pytest.raises(ValueError, match = "The qubit state must have"\
-                       " some non-zero entries."):
+    with pytest.raises(ValueError, match = ("The qubit state must have " +
+                                            "some non-zero entries.")):
         qs.QubitState([0,0,0,0])
 
 
@@ -74,37 +74,38 @@ def test_twoqubit():
     assert np.allclose(q_state.get_initial(), np.array([1,0,1,0]))
 
     # Test wrong input type for both inputs
-    with pytest.raises(TypeError, match = "The first qubit state matrix "\
-                       "must be a tuple, list or NumPy array."):
+    with pytest.raises(TypeError, match = ("The first qubit state matrix " +
+                       "must be a tuple, list or NumPy array.")):
         qs.QubitState("error.",(1,0))
 
-    with pytest.raises(TypeError, match = "The second qubit state matrix "\
-                       "must be a tuple, list or NumPy array."):
+    with pytest.raises(TypeError, match = ("The second qubit state matrix " +
+                       "must be a tuple, list or NumPy array.")):
         qs.QubitState((1,0),"worthy.")
     
     # Test wrong input element type
-    with pytest.raises(TypeError, match = "All elements of the input "\
-                       "state must be either int or float."):
+    with pytest.raises(TypeError, match = ("All elements of the input " +
+                       "state must be either int or float.")):
         qs.QubitState(['a','b'],[1,0])
 
-    with pytest.raises(TypeError, match = "All elements of the input "\
-                       "state must be either int or float."):
+    with pytest.raises(TypeError, match = ("All elements of the input " +
+                       "state must be either int or float.")):
         qs.QubitState([1,0],['c','d'])
 
     # Test wrong first qubit matrix input size
-    with pytest.raises(ValueError, match = "The first qubit state matrix should be "\
-                       "a 2x1 matrix."):
+    with pytest.raises(ValueError, match = ("The first qubit state matrix should be " +
+                       "a 2x1 matrix.")):
         qs.QubitState([0,0,0], (1,0))
     
     # Test wrong second qubit matrix input size
-    with pytest.raises(ValueError, match = "The second qubit state matrix should be "\
-                       "a 2x1 matrix."):
+    with pytest.raises(ValueError, match = ("The second qubit state matrix should be " +
+                       "a 2x1 matrix.")):
         qs.QubitState((1,0), [0,0,0])
     
     # Test an empty qubit state input
-    with pytest.raises(ValueError, match = "The qubit state must have"\
-                       " some non-zero entries."):
+    with pytest.raises(ValueError, match = ("The qubit state must have" +
+                       " some non-zero entries.")):
         qs.QubitState([0,0],[0,0])
+
 
 def test_copy():
     """
@@ -113,7 +114,9 @@ def test_copy():
     """
     q_state = qs.QubitState([1,0,1,0])
     q_state_copy = q_state.copy()
+
     assert not q_state_copy is q_state
+
 
 def test_measurements():
     """
@@ -142,6 +145,7 @@ def test_measurements():
     assert np.isclose(probs[0], 0.5)
     assert np.isclose(probs[1], 0.5)
 
+
 def test_set():
     """
     Function to test the modification of a qubit state after initialisation.
@@ -149,6 +153,7 @@ def test_set():
     q_state = qs.QubitState([1,1,0,0])
 
     assert np.allclose(q_state.set_state([0,0,0,1]), np.array([0,0,0,1]))
+
 
 def test_compare():
     """
@@ -161,7 +166,8 @@ def test_compare():
     assert q_state.compare((1,1,0,0))
 
     # Test error handling for invalid comparison state
-    with pytest.raises(ValueError, match = "Comparison state needs to be a valid numerical qubit"\
-                                " input state as a QubitState, NumPy array, list or tuple."):
+    with pytest.raises(ValueError, match = ("Comparison state needs " +
+                        "to be a valid numerical qubit input state as a " +
+                        "QubitState, NumPy array, list or tuple.")):
         q_state.compare("error")
     

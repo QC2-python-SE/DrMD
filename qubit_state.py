@@ -294,6 +294,7 @@ class QubitState:
         
         return stats
     
+    
     def measure_collapse(self, to_measure = 12):
         """
         A measurement of the qubit state in the computational basis.
