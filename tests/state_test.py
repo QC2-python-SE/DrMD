@@ -1,10 +1,8 @@
 import pytest
 import numpy as np
-import warnings
 
 import drmd.qubit_state as qs
 
-warnings.filterwarnings("ignore", category=PendingDeprecationWarning)
 """
 A testing python file using the pytest framework for the QubitState class.
 
