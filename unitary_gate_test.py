@@ -3,7 +3,7 @@ A testing python file that has been designed to ensure that the constructor
 as well as the functions apply and dag in the UnitaryGate class operate as 
 expected. 
 
-The copy and repr functions are test in test_circuit.py.
+The copy and repr functions are tested in test_circuit.py.
 '''
 
 import gate_list as gl
