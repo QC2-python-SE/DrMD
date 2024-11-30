@@ -48,7 +48,7 @@ class Circuit:
         Override behavior of str so that matrices of the circuit are printed.
         """
         
-        if self.isEmpty():
+        if self.is_empty():
             return "Empty circuit"
         
         mess = "The gates applied are: \n"
@@ -70,9 +70,13 @@ class Circuit:
             returned.append(unitary.copy())
         return returned
         
-    def isEmpty(self):
+    def is_empty(self):
         """Return True if the circuit is empty, False otherwise."""
         return self._gates == []
+    
+    def size(self):
+        """Returns number of gates in (depth of) circuit"""
+        return len(self._gates)
     
     def append(self, unitary: UnitaryGate):
         """
@@ -101,7 +105,7 @@ class Circuit:
         Raise:
             IndexError: if index out of bounds or if circuit is empty.
 
-        Return:
+        Returns:
             UnitaryGate: the unitary that was removed from the circuit.
         """
         return self._gates.pop(index)
@@ -136,10 +140,6 @@ class Circuit:
         """
         self._gates.insert(index,unitary.copy())
 
-    def size(self):
-        """Returns number of gates in (depth of) circuit"""
-        return len(self._gates)
-
     def merge(self, circuit: 'Circuit'):
         """
         Modify current circuit by appending deep copy 
@@ -152,7 +152,7 @@ class Circuit:
         Raise:
             TypeError: if input not of type Circuit
 
-        Return:
+        Returns:
             Circuit: reference to self
         """
 
@@ -184,7 +184,7 @@ class Circuit:
         Args:
             in_state (QubitState or np.array): state to which self is applied
 
-        Return:
+        Returns:
             QubitState or np.array: state after applying the circuit, same
             return type as input
         
@@ -192,7 +192,7 @@ class Circuit:
             ValueError: if np.array state not of correct size
             TypeError: if input not QubitState or np.array
         """
-        
+
         out_state = in_state.copy()  # don't modify input
 
         for unitary in self._gates:
@@ -200,12 +200,32 @@ class Circuit:
             
         return out_state
     
+    def compare(self, circ: 'Circuit') -> bool:
+        """
+        Function for comparing self to another circuit.
+        Returns True iff. the two circuits apply same gates in same order.
+
+        Args:
+            circ (Circuit): a circuit to be compared with self
+
+        Returns:
+            bool: True iff. the two circuits have same circuit diagram.
+        """
+        if circ.size() != self.size():
+            return False
+
+        for i in range(circ.size()):
+            if not self._gates[i].compare(circ._gates[i]):
+                return False 
+            
+        return True
+    
     def print(self):
         """
         Alternative method for printing gates of circuit.
         """
         
-        if self.isEmpty():
+        if self.is_empty():
             print("Empty circuit")
             return
         
