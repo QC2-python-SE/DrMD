@@ -1,10 +1,9 @@
 import numpy as np
 from numpy import allclose
 from typing import TypeVar
+from scipy.stats import unitary_group as ug
 
 from qubit_state import QubitState
-from numpy import allclose
-from scipy.stats import unitary_group as ug
 
 # Creates an range of valid input types for testing.
 apply_type = TypeVar("state", np.ndarray, QubitState)
@@ -172,7 +171,12 @@ class UnitaryGate:
 def random_unitary() -> UnitaryGate:
     """
     Function that returns a random UnitaryGate object.
+
+    Returns:
+        UnitaryGate: A random unitary gate.
     """
+    # Generate a random unitary matrix.
     uni = ug.rvs(4)
+
     return UnitaryGate(uni)
   
