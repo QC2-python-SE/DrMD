@@ -1,13 +1,13 @@
 import numpy as np
-np.set_printoptions(legacy='1.25')  # For more intuitive float print messages
+np.set_printoptions(legacy='1.21')  # For more intuitive float print messages
 
 class QubitState:
     """
     A class representing a two-qubit state.
 
-    This class holds the information about a particular quantum state. Once
-    a user has initialised a qubitstate object, it can be applied to 
-    unitary operations or measurements.
+    This class holds the information about a particular quantum state.
+    Once a user has initialised a qubitstate object, it can be applied
+    to unitary operations or measurements.
 
     Attributes:
         __qb_matrix (numpy.ndarray): the matrix representation of the
@@ -44,7 +44,7 @@ class QubitState:
 
             # Type check for matrix
             if not isinstance(matrix, (tuple, list, np.ndarray)):  
-                raise TypeError("The qubit state matrix must be a tuple, "\
+                raise TypeError("The qubit state matrix must be a tuple, " +
                                 "list or NumPy array.")
             
             # Convert list or tuple to np array
@@ -55,19 +55,20 @@ class QubitState:
             if matrix.ndim != 1 or matrix.shape != (4,):
                 raise ValueError("The qubit state matrix should be a 4x1 matrix.")
             
-            # Type check for each element in the input states (must be numeric)
+            # Type check for each element in the input states 
+            # (must be numeric)
             if not np.issubdtype(matrix.dtype, np.number):
-                raise TypeError("All elements of the input "\
+                raise TypeError("All elements of the input "+
                                 "state must be either int or float.")
         
         else:
             # Type check for matrices
             if not isinstance(matrix1, (tuple, list, np.ndarray)):  
-                raise TypeError("The first qubit state matrix must be a "\
+                raise TypeError("The first qubit state matrix must be a " +
                                 "tuple, list or NumPy array.")
 
             if not isinstance(matrix2, (tuple, list, np.ndarray)):  
-                raise TypeError("The second qubit state matrix must be a "\
+                raise TypeError("The second qubit state matrix must be a " +
                                 "tuple, list or NumPy array.")
             
             # Convert list or tuple to np array
@@ -79,20 +80,21 @@ class QubitState:
             
             # Check dimensions of matrix parameters
             if matrix1.ndim != 1 or matrix1.shape != (2,):
-                raise ValueError("The first qubit state matrix should be "\
+                raise ValueError("The first qubit state matrix should be " +
                                  "a 2x1 matrix.")
             
             if matrix2.ndim != 1 or matrix2.shape != (2,):
-                raise ValueError("The second qubit state matrix should be "\
+                raise ValueError("The second qubit state matrix should be " +
                                  "a 2x1 matrix.")
             
-            # Type check for each element in the input states (must be numeric)
+            # Type check for each element in the input states 
+            # (must be numeric)
             if not np.issubdtype(matrix1.dtype, np.number):
-                raise TypeError("All elements of the input "\
+                raise TypeError("All elements of the input " +
                                 "state must be either int or float.")
             
             if not np.issubdtype(matrix2.dtype, np.number):
-                raise TypeError("All elements of the input "\
+                raise TypeError("All elements of the input " +
                                 "state must be either int or float.")
         
             # Combine the two single-qubit states
@@ -113,6 +115,7 @@ class QubitState:
         
         self.__qb_matrix = matrix
 
+
     def get_initial(self):
         """
         Function to give the qubit state used to initialise this
@@ -124,6 +127,7 @@ class QubitState:
         """
         return np.copy(self.__qb_init)
     
+
     def peek(self):
         """
         Function to show the current qubit state probabilities in the
@@ -134,6 +138,7 @@ class QubitState:
             numpy.ndarray: 4x1 matrix of current qubit state.
         """
         return np.copy(self.__qb_matrix)
+
 
     def copy(self):
         """
@@ -146,6 +151,7 @@ class QubitState:
         temp_qs = QubitState(np.copy(self.__qb_matrix))
         return temp_qs
     
+
     def compare(self, other_state):
         """
         Function to compare two QubitState objects or to compare
@@ -160,7 +166,7 @@ class QubitState:
         # Check if argument state is a QubitState object
         if isinstance(other_state, QubitState):
             q_state_other = other_state
-            
+
         else:
             try:
                 # Attempt to create a QubitState object, suppressing any errors raised inside
@@ -172,7 +178,7 @@ class QubitState:
 
                 if q_state_other is None:
                     # Raise an error if QubitState could not be constructed
-                    raise ValueError("Comparison state needs to be a valid numerical qubit"\
+                    raise ValueError("Comparison state needs to be a valid numerical qubit" +
                                     " input state as a QubitState, NumPy array, list or tuple.")
             except ValueError as error:
                 # Reraise ValueError to ensure external handling aligns with expected behavior
@@ -202,6 +208,7 @@ class QubitState:
 
         return self.peek()
 
+
     def __repr__(self):
         """
         Function to override the default 'print()' behaviour in python.
@@ -213,7 +220,8 @@ class QubitState:
         """
         return str(np.round(self.peek(),4))  # Rounded for clarity
     
-    def measureStats(self, to_measure = 12):
+    
+    def measure_stats(self, to_measure = 12):
         """
         A description of the statistics for a  measurement of the qubit
         state in the computational basis.
@@ -280,13 +288,13 @@ class QubitState:
 
             # Handle any other user input    
             case _:
-                raise ValueError("The qubit to be measured must be"\
-                                  "indicated as an integer. Either 1,2"\
+                raise ValueError("The qubit to be measured must be" +
+                                  "indicated as an integer. Either 1,2" +
                                     " or 12 (both)")
         
         return stats
     
-    def measureCollapse(self, to_measure = 12):
+    def measure_collapse(self, to_measure = 12):
         """
         A measurement of the qubit state in the computational basis.
         Collapses the current qubit state to one of the z-basis states.
@@ -298,7 +306,7 @@ class QubitState:
         Returns:
             QubitState: The qubit state as a result of the measurement.
         """
-        stats = self.measureStats(to_measure)
+        stats = self.measure_stats(to_measure)
 
         # Extract QubitStates and probabilties from stats list
         states, probs = zip(*stats)

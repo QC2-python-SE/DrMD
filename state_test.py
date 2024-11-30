@@ -124,19 +124,19 @@ def test_measurements():
     q_state = qs.QubitState([1,1,0,0])
 
     # Test measurement on both qubits
-    states, probs = zip(*q_state.measureStats(12))
+    states, probs = zip(*q_state.measure_stats(12))
     assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
     assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
     assert np.isclose(probs[0], 0.5)
     assert np.isclose(probs[1], 0.5)
 
     # Test measurement on qubit 1
-    states, probs = zip(*q_state.measureStats(1))
+    states, probs = zip(*q_state.measure_stats(1))
     assert np.allclose(states[0].peek(), np.array([0.7071,0.7071,0,0]))
     assert np.isclose(probs[0], 1.0)
 
     # Test measurement on qubit 2
-    states, probs = zip(*q_state.measureStats(2))
+    states, probs = zip(*q_state.measure_stats(2))
     assert np.allclose(states[0].peek(), np.array([1,0,0,0]))
     assert np.allclose(states[1].peek(), np.array([0,1,0,0]))
     assert np.isclose(probs[0], 0.5)
