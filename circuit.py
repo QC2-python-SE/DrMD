@@ -1,8 +1,10 @@
-from unitary_gate import UnitaryGate, random_unitary
-from qubit_state import QubitState
 from typing import TypeVar
 import numpy as np
 
+from unitary_gate import UnitaryGate, random_unitary
+from qubit_state import QubitState
+
+# Creates an range of valid input types for testing.
 circ_in = TypeVar("circ", list[UnitaryGate], UnitaryGate)
 state_type = TypeVar("state", np.ndarray, QubitState)
 
@@ -50,6 +52,9 @@ class Circuit:
     def __str__(self):
         """
         Override behavior of str so that matrices of the circuit are printed.
+
+        Returns:
+            str: Matrices of the circuit gates.
         """
         
         if self.is_empty():
@@ -68,18 +73,33 @@ class Circuit:
     
     
     def __deepcopy(self, gates):
-        # Private method to create a deep copy of gates list
+        """
+        Private method to create a deep copy of gate list.
+
+        Returns:
+            list: Copy of circuit gate list.
+        """
         returned = []
         for unitary in gates:
             returned.append(unitary.copy())
         return returned
         
     def is_empty(self):
-        """Return True if the circuit is empty, False otherwise."""
+        """
+        Function to check if circuit is empty.
+        
+        Returns:
+            bool: True if the circuit is empty, False otherwise.
+        """
         return self._gates == []
     
     def size(self):
-        """Returns number of gates in (depth of) circuit"""
+        """
+        Function to check the number of gates in (depth of) circuit.
+        
+        Returns:
+            int: Number of gates.
+        """
         return len(self._gates)
     
     def append(self, unitary: UnitaryGate):
@@ -89,10 +109,10 @@ class Circuit:
         for encapsulation.
         
         Args:
-            unitary (UnitaryGate): unitary to be appended to circuit
+            unitary (UnitaryGate): Unitary to be appended to circuit
 
         Raises:
-            TypeError: if input is not a UnitaryGate
+            TypeError: If input is not a UnitaryGate
         """
 
         if type(unitary) is not UnitaryGate:
@@ -107,10 +127,10 @@ class Circuit:
         See also: behavior of list.pop() in Python3.
 
         Raise:
-            IndexError: if index out of bounds or if circuit is empty.
+            IndexError: If index out of bounds or if circuit is empty.
 
         Returns:
-            UnitaryGate: the unitary that was removed from the circuit.
+            UnitaryGate: The unitary that was removed from the circuit.
         """
         return self._gates.pop(index)
     
@@ -119,13 +139,13 @@ class Circuit:
         Returns a copy of the unitary at position index in self.
 
         Args:
-            index (int): position of the unitary to be returned
+            index (int): Position of the unitary to be returned
         
         Returns:
-            UnitaryGate: copy of gate in circuit at position index.
+            UnitaryGate: Copy of gate in circuit at position index.
 
         Raises:
-            IndexError: if index out of bounds.
+            IndexError: If index out of bounds.
         
         """
         return self._gates[index].copy()
@@ -138,9 +158,9 @@ class Circuit:
         See also the behavior of list.insert() in Python3.
 
         Args:
-            index (int): position at which unitary is inserted
-            unitary (UnitaryGate): unitary whose deep copy is 
-                    inserted in the circuit
+            index (int): Position at which unitary is inserted.
+            unitary (UnitaryGate): Unitary whose deep copy is 
+                    inserted in the circuit.
         """
         self._gates.insert(index,unitary.copy())
 
@@ -150,14 +170,14 @@ class Circuit:
         of the gates in another circuit to the end.
 
         Args:
-            circuit: object of type Circuit, whose gates
-                     will be appended to current object
+            circuit: Object of type Circuit, whose gates
+                     will be appended to current object.
 
-        Raise:
-            TypeError: if input not of type Circuit
+        Raises:
+            TypeError: If input not of type Circuit.
 
         Returns:
-            Circuit: reference to self
+            Circuit: Reference to self.
         """
 
         if type(circuit) != Circuit:
@@ -173,7 +193,7 @@ class Circuit:
         Creates and returns deep copy of circuit.
 
         Returns:
-            Circuit: deep copy of self
+            Circuit: Deep copy of self.
         """
         gates = self.__deepcopy(self._gates)
 
@@ -186,15 +206,15 @@ class Circuit:
         Input state is not modified.
 
         Args:
-            in_state (QubitState or np.array): state to which self is applied
+            in_state (QubitState or np.array): State to which self is applied.
 
         Returns:
-            QubitState or np.array: state after applying the circuit, 
-            of same type as the input
+            QubitState or np.array: State after applying the circuit, 
+            of same type as the input.
         
         Raises:
-            ValueError: if np.array state not of correct size
-            TypeError: if input not QubitState or np.array
+            ValueError: If np.array state not of correct size.
+            TypeError: If input not QubitState or np.array.
         """
 
         out_state = in_state.copy()  # don't modify input
@@ -210,7 +230,7 @@ class Circuit:
         Returns True iff. the two circuits apply same gates in same order.
 
         Args:
-            circ (Circuit): a circuit to be compared with self
+            circ (Circuit): A circuit to be compared with self.
 
         Returns:
             bool: True iff. the two circuits have same circuit diagram.
@@ -243,17 +263,18 @@ class Circuit:
         
         print(self._gates[-1], ".\n")
     
+
 def random_circuit(depth: int = 1) -> Circuit:
     """
     Function that returns a random circuit of unitaries,
     of given depth.
 
     Args:
-        depth (int): depth of the circuit to be returned.
+        depth (int): Depth of the circuit to be returned.
                     Implicitly, it is 1.
 
     Returns:
-        Circuit : circuit with 'depth' random unitaries
+        Circuit : Circuit object  with <depth> random unitaries.
     """
     gates = []
 
@@ -262,10 +283,3 @@ def random_circuit(depth: int = 1) -> Circuit:
     
     return Circuit(gates)
         
-    
-
-
-
-
-
-
