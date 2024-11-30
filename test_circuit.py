@@ -154,7 +154,32 @@ def test_pop():
     assert circ.compare(new_circ)
 
 def test_get_element():
-    """Test UnitaryGate.get_element() behavior."""
+    """
+    Function that tests the behavior of UnitaryGate.get_element() 
+    against the behavior of lists, while making sure that
+    the function only returns copies of unitaries (and not
+    the unitary at the address stored in circuit).
+    """
+
+    for i in range(10):
+        # Generate random list of gates
+        gates = []
+        depth = rand.randint(1, 10)
+        for i in range(depth):
+            gates.append(random_unitary())
+        
+        circ = Circuit(gates)
+
+        index = rand.randint(0, depth-1)
+
+        uni_returned = circ.get_element(index)
+
+        assert uni_returned.compare(gates[index])  # Check same as in list
+
+        # Check get_element returns a copy with different address
+        uni_popped = circ.pop(index)  # Object at address stored in circuit
+        assert uni_returned.compare(uni_popped)
+        assert uni_returned != uni_popped  
 
 def test_insert():
     """TODO"""
