@@ -3,3 +3,8 @@ scipy
 pytest
 sphinx
 sphinx-rtd-theme
+nbpshinx
+nbconvert
+pandoc
+pygments
+ipython

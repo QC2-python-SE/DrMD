@@ -8,7 +8,10 @@
 import os
 import sys
 
+sys.path.insert(0, os.path.abspath('../../drmd'))
 sys.path.insert(0, os.path.abspath('../../'))
+
+suppress_warnings = ['docutils']
 
 project = 'DrMD'
 copyright = '2024, DrMD'
@@ -18,7 +21,7 @@ release = '0.1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'nbsphinx', 'sphinx.ext.mathjax']
 
 templates_path = ['_templates']
 exclude_patterns = []

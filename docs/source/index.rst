@@ -16,4 +16,4 @@ documentation for details.
    :caption: Contents:
 
    modules
-
+   notebooks/tutorial_notebook
