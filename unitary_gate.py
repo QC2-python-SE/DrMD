@@ -109,7 +109,7 @@ class UnitaryGate:
 
         if type(state) == np.ndarray:
             if state.shape != (4,) or state.ndim != 1:
-                raise(ValueError, "Wrong size of state")
+                raise ValueError("Wrong size of state. Input states need to be a 4x1 array.")
             
             return np.array(self._matrix @ state)[0]
         
@@ -119,7 +119,7 @@ class UnitaryGate:
             return QubitState(state_array)
         
         else:
-            raise(TypeError, "Input must be numpy.ndarray or QubitState")
+            raise TypeError("Input must be numpy.ndarray or QubitState.")
 
 
     def __repr__(self):

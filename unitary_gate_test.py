@@ -5,6 +5,8 @@ expected.
 
 The copy and repr functions are tested in test_circuit.py.
 '''
+import pytest
+import numpy as np
 
 import gate_list as gl
 from unitary_gate import UnitaryGate
@@ -39,13 +41,11 @@ def test_construction():
 
     with pytest.raises(ValueError, match = "The first unitary gate matrix "\
                        "should be a 2x2 matrix."):
-        UnitaryGate(gl.hadamard1, gl.H_mat)
+        UnitaryGate(np.random.rand(4, 4), gl.H_mat)
 
     with pytest.raises(ValueError, match = "The second unitary gate matrix "\
                        "should be a 2x2 matrix."):
-        UnitaryGate(gl.H_mat, gl.hadamard2)
-
-test_construction()
+        UnitaryGate(gl.H_mat, np.random.rand(4, 4))
 
 def test_apply():
     '''
@@ -62,22 +62,21 @@ def test_apply():
     correct QubitState by applying a Y1 operator to the |00> state to get
     -i|10>.
     '''
-    example_ndarray = np.array([[1,0,0,0]])
+    example_ndarray = np.array([1,0,0,0])
     example_qubitstate = QubitState([1,0,0,0])
 
-    assert (gl.x1.apply(example_ndarray) == [0,0,1,0]).all()
-    assert (gl.x2.apply(example_ndarray) == [1,0,0,0]).all()
+    assert (gl.x1.apply(example_ndarray) ==  [0,0,1,0]).all()
+    assert (gl.x2.apply(example_ndarray) == [0,1,0,0]).all()
     assert (gl.z1.apply(example_ndarray) == [1,0,0,0]).all()
 
-    assert gl.y1.apply(example_qubitstate).compare(QubitState([0,0,-1j,0]))
+    assert gl.y1.apply(example_qubitstate).compare(QubitState([0,0,1j,0]))
 
     with pytest.raises(ValueError, match = "Wrong size of state"):
-        gl.z2.apply([0,0,1])
+        gl.z2.apply(np.array([0,0,1]))
 
     with pytest.raises(TypeError, match = "Input must be numpy.ndarray or QubitState"):
         gl.y1.apply('Error inducing input')
 
-test_apply()
 
 def test_dag():
     '''
@@ -88,13 +87,11 @@ def test_dag():
     acting on qubit 1. The dagger function should output the Hermitian
     conjugate of the matrix which has been calculated for comparison by hand.
     '''
-    example = UnitaryGate(np.kron(X_mat @ Z_mat,I_mat))
-    example_hermitianconjugate = UnitaryGate(np.array([[0, -1, 0, 0],
-                        [1, 0, 0, 0], [0, 0, 0, -1], [0, 0, 1, 0]]))
+    example = UnitaryGate(np.kron(gl.X_mat @ gl.Z_mat, gl.I_mat))
+    example_hermitianconjugate = UnitaryGate(np.array([[0, 0, 1, 0],
+                        [0, 0, 0, 1], [-1, 0, 0, 0], [0, -1, 0, 0]]))
 
-    assert (example.dagger() == example_hermitianconjugate).all()
-
-test_dag()
+    assert example.dagger().compare(example_hermitianconjugate)
 
 
 

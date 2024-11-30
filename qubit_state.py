@@ -157,21 +157,26 @@ class QubitState:
         Returns:
             bool: Outcome of comparison.
         """
-        try:
-            # Attempt to create a QubitState object, suppressing any errors raised inside
-            q_state_other = None
+        # Check if argument state is a QubitState object
+        if isinstance(other_state, QubitState):
+            q_state_other = other_state
+            
+        else:
             try:
-                q_state_other = QubitState(other_state)
-            except:
-                pass  # Suppress any exception raised by the QubitState constructor
+                # Attempt to create a QubitState object, suppressing any errors raised inside
+                q_state_other = None
+                try:
+                    q_state_other = QubitState(other_state)
+                except:
+                    pass  # Suppress any exception raised by the QubitState constructor
 
-            if q_state_other is None:
-                # Raise an error if QubitState could not be constructed
-                raise ValueError("Comparison state needs to be a valid numerical qubit"\
-                                " input state as a QubitState, NumPy array, list or tuple.")
-        except ValueError as error:
-            # Reraise ValueError to ensure external handling aligns with expected behavior
-            raise error
+                if q_state_other is None:
+                    # Raise an error if QubitState could not be constructed
+                    raise ValueError("Comparison state needs to be a valid numerical qubit"\
+                                    " input state as a QubitState, NumPy array, list or tuple.")
+            except ValueError as error:
+                # Reraise ValueError to ensure external handling aligns with expected behavior
+                raise error
 
         # Perform the comparison if no exception was raised
         return np.allclose(self.peek(), q_state_other.peek())
