@@ -14,7 +14,11 @@ class Circuit:
     Indexing starts from 0 for the gate that is first applied.
 
     The list of gates is inteded to be a protected attribute, 
-    to be accessed through the class methods to avoid midhandling.
+    to be accessed through the class methods to avoid mishandling.
+
+    Gates stored within circuit objects are copies of the gates
+    given as parameters, to preserve the integrity of the data 
+    from unwanted external modifications. 
     
     Attributes:
         _gates (list[UnitaryGate]): a list of unitaries describing the circuit.
@@ -112,7 +116,7 @@ class Circuit:
     
     def get_element(self, index: int) -> UnitaryGate:
         """
-        Returns copy of unitary at position index in circuit.
+        Returns a copy of the unitary at position index in self.
 
         Args:
             index (int): position of the unitary to be returned
@@ -143,10 +147,10 @@ class Circuit:
     def merge(self, circuit: 'Circuit'):
         """
         Modify current circuit by appending deep copy 
-        of another circuit to the end.
+        of the gates in another circuit to the end.
 
         Args:
-            circuit: object of type Circuit, which
+            circuit: object of type Circuit, whose gates
                      will be appended to current object
 
         Raise:
@@ -185,8 +189,8 @@ class Circuit:
             in_state (QubitState or np.array): state to which self is applied
 
         Returns:
-            QubitState or np.array: state after applying the circuit, same
-            return type as input
+            QubitState or np.array: state after applying the circuit, 
+            of same type as the input
         
         Raises:
             ValueError: if np.array state not of correct size
