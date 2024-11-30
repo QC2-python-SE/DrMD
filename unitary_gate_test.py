@@ -66,17 +66,17 @@ def test_apply():
     example_ndarray = np.array([1,0,0,0])
     example_qubitstate = QubitState([1,0,0,0])
 
-    assert (gl.x1.apply(example_ndarray) ==  [0,0,1,0]).all()
-    assert (gl.x2.apply(example_ndarray) == [0,1,0,0]).all()
-    assert (gl.z1.apply(example_ndarray) == [1,0,0,0]).all()
+    assert (gl.X1.apply(example_ndarray) ==  [0,0,1,0]).all()
+    assert (gl.X2.apply(example_ndarray) == [0,1,0,0]).all()
+    assert (gl.Z1.apply(example_ndarray) == [1,0,0,0]).all()
 
-    assert gl.y1.apply(example_qubitstate).compare(QubitState([0,0,1j,0]))
+    assert gl.Y1.apply(example_qubitstate).compare(QubitState([0,0,1j,0]))
 
     with pytest.raises(ValueError, match = "Wrong size of state"):
-        gl.z2.apply(np.array([0,0,1]))
+        gl.Z2.apply(np.array([0,0,1]))
 
     with pytest.raises(TypeError, match = "Input must be numpy.ndarray or QubitState"):
-        gl.y1.apply('Error inducing input')
+        gl.Y1.apply('Error inducing input')
 
 
 def test_dag():
