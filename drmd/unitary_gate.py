@@ -3,7 +3,7 @@ from numpy import allclose
 from typing import TypeVar
 from scipy.stats import unitary_group as ug
 
-from drmd.qubit_state import QubitState
+from qubit_state import QubitState
 
 # Creates an range of valid input types for testing.
 apply_type = TypeVar("state", np.ndarray, QubitState)

@@ -1,12 +1,18 @@
+import sys
+import os
+
+# Add the package's source directory to sys.path
+sys.path.insert(0, os.path.abspath('../drmd'))
+
 import pytest
 import random as rand
 from scipy.stats import unitary_group as ug
 import numpy as np
 
-from drmd.circuit import Circuit, random_circuit
-import drmd.gate_list as gl
-from drmd.unitary_gate import UnitaryGate, random_unitary
-from drmd.qubit_state import QubitState
+from circuit import Circuit, random_circuit
+import gate_list as gl
+from unitary_gate import UnitaryGate, random_unitary
+from qubit_state import QubitState
 
 """
 A testing python file using the pytest framework for the Circuit class.

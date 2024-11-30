@@ -1,8 +1,8 @@
 from typing import TypeVar
 import numpy as np
 
-from drmd.unitary_gate import UnitaryGate, random_unitary
-from drmd.qubit_state import QubitState
+from unitary_gate import UnitaryGate, random_unitary
+from qubit_state import QubitState
 
 # Creates an range of valid input types for testing.
 circ_in = TypeVar("circ", list[UnitaryGate], UnitaryGate)

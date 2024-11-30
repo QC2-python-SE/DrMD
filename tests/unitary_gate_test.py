@@ -5,12 +5,18 @@ expected.
 
 The copy and repr functions are tested in test_circuit.py.
 '''
+import sys
+import os
+
+# Add the package's source directory to sys.path
+sys.path.insert(0, os.path.abspath('../drmd'))
+
 import pytest
 import numpy as np
 
-import drmd.gate_list as gl
-from drmd.unitary_gate import UnitaryGate
-from drmd.qubit_state import QubitState
+import gate_list as gl
+from unitary_gate import UnitaryGate
+from qubit_state import QubitState
 
 def test_construction():
     '''

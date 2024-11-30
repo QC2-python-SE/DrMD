@@ -1,7 +1,13 @@
+import sys
+import os
+
+# Add the package's source directory to sys.path
+sys.path.insert(0, os.path.abspath('../drmd'))
+
 import pytest
 import numpy as np
 
-import drmd.qubit_state as qs
+import qubit_state as qs
 
 """
 A testing python file using the pytest framework for the QubitState class.
