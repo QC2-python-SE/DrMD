@@ -1,7 +1,9 @@
 '''
 A testing python file that has been designed to ensure that the constructor
 as well as the functions apply and dag in the UnitaryGate class operate as 
-expected.
+expected. 
+
+The copy and repr functions are test in test_circuit.py.
 '''
 
 import gate_list as gl
@@ -51,19 +53,23 @@ def test_apply():
     function takes a one or two qubit unitary gate and applies it to a two
     qubit state, outputting another qubit state.
 
-    We use the X1, X2 and Z1 gates acting on the |00> state as a vector as an 
-    example to ensure the apply function is performing matrix multiplication
-    correctly and outputting the correct states, being |01>, |00> and |00> 
-    respectively.
+    We use the X1, X2 and Z1 gates acting on the |00> state as an ndarray as 
+    an example to ensure the apply function is performing matrix 
+    multiplication correctly and outputting the correct states, being |01>,
+    |00> and |00> respectively.
+
+    An input of type QubitState is also tested to ensure the output is the 
+    correct QubitState by applying a Y1 operator to the |00> state to get
+    -i|10>.
     '''
-    example_ndarray = [1,0,0,0]
+    example_ndarray = np.array([[1,0,0,0]])
     example_qubitstate = QubitState([1,0,0,0])
 
     assert (gl.x1.apply(example_ndarray) == [0,0,1,0]).all()
     assert (gl.x2.apply(example_ndarray) == [1,0,0,0]).all()
     assert (gl.z1.apply(example_ndarray) == [1,0,0,0]).all()
 
-    assert (gl.y1.apply(example_qubitstate) = [0,0,1j,0]).all()
+    assert gl.y1.apply(example_qubitstate).compare(QubitState([0,0,-1j,0]))
 
     with pytest.raises(ValueError, match = "Wrong size of state"):
         gl.z2.apply([0,0,1])
