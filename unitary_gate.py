@@ -2,6 +2,7 @@ import numpy as np
 from typing import TypeVar
 from qubit_state import QubitState
 from numpy import allclose
+from scipy.stats import unitary_group as ug
 
 apply_type = TypeVar("state", np.ndarray, QubitState)
 
@@ -163,5 +164,10 @@ class UnitaryGate:
         mat2 = self._matrix
         return allclose(mat1, mat2, atol = 1.e-5)
         
-
+def random_unitary() -> UnitaryGate:
+    """
+    Function that returns a random UnitaryGate object.
+    """
+    uni = ug.rvs(4)
+    return UnitaryGate(uni)
   

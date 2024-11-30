@@ -1,4 +1,4 @@
-from unitary_gate import UnitaryGate
+from unitary_gate import UnitaryGate, random_unitary
 from qubit_state import QubitState
 from typing import TypeVar
 import numpy as np
@@ -157,7 +157,7 @@ class Circuit:
         """
 
         if type(circuit) != Circuit:
-            raise TypeError("Merged element must be of type ", type(self))
+            raise TypeError("Merged element must be of type Circuit")
         
         for unitary in circuit._gates:
             self.append(unitary)    # to perform deep copy
@@ -211,6 +211,9 @@ class Circuit:
         Returns:
             bool: True iff. the two circuits have same circuit diagram.
         """
+        if type(circ) is not Circuit:
+            raise TypeError("Input must be a Circuit")
+
         if circ.size() != self.size():
             return False
 
@@ -236,7 +239,24 @@ class Circuit:
         
         print(self._gates[-1], ".\n")
     
+def random_circuit(depth: int = 1) -> Circuit:
+    """
+    Function that returns a random circuit of unitaries,
+    of given depth.
 
+    Args:
+        depth (int): depth of the circuit to be returned.
+                    Implicitly, it is 1.
+
+    Returns:
+        Circuit : circuit with 'depth' random unitaries
+    """
+    gates = []
+
+    for i in range(depth):
+        gates.append(random_unitary())
+    
+    return Circuit(gates)
         
     
 
