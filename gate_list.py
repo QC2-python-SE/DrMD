@@ -29,7 +29,7 @@ Z_mat = np.array([[1, 0], [0, -1]])
 # Hadamard gate
 H_mat = 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]])
 
-# define gates
+# Define gates
 X1 = unitary_gate.UnitaryGate(np.kron(X_mat,I_mat))
 X2 = unitary_gate.UnitaryGate(np.kron(I_mat,X_mat))
 Y1 = unitary_gate.UnitaryGate(np.kron(Y_mat,I_mat))
