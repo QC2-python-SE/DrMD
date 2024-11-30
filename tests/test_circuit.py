@@ -2,11 +2,14 @@ import pytest
 import random as rand
 from scipy.stats import unitary_group as ug
 import numpy as np
+import warnings
 
-from circuit import Circuit, random_circuit
-import gate_list as gl
-from unitary_gate import UnitaryGate, random_unitary
-from qubit_state import QubitState
+from drmd.circuit import Circuit, random_circuit
+import drmd.gate_list as gl
+from drmd.unitary_gate import UnitaryGate, random_unitary
+from drmd.qubit_state import QubitState
+
+warnings.filterwarnings("ignore", category=PendingDeprecationWarning)
 
 """
 A testing python file using the pytest framework for the Circuit class.

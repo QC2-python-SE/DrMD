@@ -15,7 +15,7 @@ qubit on 2 and cnot2 describes a control on qubit 2 and a NOT gate on qubit 1.
 '''
 
 import numpy as np
-import unitary_gate
+import drmd.unitary_gate as unitary_gate
 
 
 # Common gate matrices
