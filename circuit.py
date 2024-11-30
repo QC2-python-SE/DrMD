@@ -1,4 +1,4 @@
-from unitary_gate import UnitaryGate
+from unitary_gate import UnitaryGate, random_unitary
 from qubit_state import QubitState
 from typing import TypeVar
 import numpy as np
@@ -14,7 +14,11 @@ class Circuit:
     Indexing starts from 0 for the gate that is first applied.
 
     The list of gates is inteded to be a protected attribute, 
-    to be accessed through the class methods to avoid midhandling.
+    to be accessed through the class methods to avoid mishandling.
+
+    Gates stored within circuit objects are copies of the gates
+    given as parameters, to preserve the integrity of the data 
+    from unwanted external modifications. 
     
     Attributes:
         _gates (list[UnitaryGate]): a list of unitaries describing the circuit.
@@ -48,7 +52,7 @@ class Circuit:
         Override behavior of str so that matrices of the circuit are printed.
         """
         
-        if self.isEmpty():
+        if self.is_empty():
             return "Empty circuit"
         
         mess = "The gates applied are: \n"
@@ -70,9 +74,13 @@ class Circuit:
             returned.append(unitary.copy())
         return returned
         
-    def isEmpty(self):
+    def is_empty(self):
         """Return True if the circuit is empty, False otherwise."""
         return self._gates == []
+    
+    def size(self):
+        """Returns number of gates in (depth of) circuit"""
+        return len(self._gates)
     
     def append(self, unitary: UnitaryGate):
         """
@@ -101,14 +109,14 @@ class Circuit:
         Raise:
             IndexError: if index out of bounds or if circuit is empty.
 
-        Return:
+        Returns:
             UnitaryGate: the unitary that was removed from the circuit.
         """
         return self._gates.pop(index)
     
     def get_element(self, index: int) -> UnitaryGate:
         """
-        Returns copy of unitary at position index in circuit.
+        Returns a copy of the unitary at position index in self.
 
         Args:
             index (int): position of the unitary to be returned
@@ -136,28 +144,24 @@ class Circuit:
         """
         self._gates.insert(index,unitary.copy())
 
-    def size(self):
-        """Returns number of gates in (depth of) circuit"""
-        return len(self._gates)
-
     def merge(self, circuit: 'Circuit'):
         """
         Modify current circuit by appending deep copy 
-        of another circuit to the end.
+        of the gates in another circuit to the end.
 
         Args:
-            circuit: object of type Circuit, which
+            circuit: object of type Circuit, whose gates
                      will be appended to current object
 
         Raise:
             TypeError: if input not of type Circuit
 
-        Return:
+        Returns:
             Circuit: reference to self
         """
 
         if type(circuit) != Circuit:
-            raise TypeError("Merged element must be of type ", type(self))
+            raise TypeError("Merged element must be of type Circuit")
         
         for unitary in circuit._gates:
             self.append(unitary)    # to perform deep copy
@@ -184,15 +188,15 @@ class Circuit:
         Args:
             in_state (QubitState or np.array): state to which self is applied
 
-        Return:
-            QubitState or np.array: state after applying the circuit, same
-            return type as input
+        Returns:
+            QubitState or np.array: state after applying the circuit, 
+            of same type as the input
         
         Raises:
             ValueError: if np.array state not of correct size
             TypeError: if input not QubitState or np.array
         """
-        
+
         out_state = in_state.copy()  # don't modify input
 
         for unitary in self._gates:
@@ -200,12 +204,35 @@ class Circuit:
             
         return out_state
     
+    def compare(self, circ: 'Circuit') -> bool:
+        """
+        Function for comparing self to another circuit.
+        Returns True iff. the two circuits apply same gates in same order.
+
+        Args:
+            circ (Circuit): a circuit to be compared with self
+
+        Returns:
+            bool: True iff. the two circuits have same circuit diagram.
+        """
+        if type(circ) is not Circuit:
+            raise TypeError("Input must be a Circuit")
+
+        if circ.size() != self.size():
+            return False
+
+        for i in range(circ.size()):
+            if not self._gates[i].compare(circ._gates[i]):
+                return False 
+            
+        return True
+    
     def print(self):
         """
         Alternative method for printing gates of circuit.
         """
         
-        if self.isEmpty():
+        if self.is_empty():
             print("Empty circuit")
             return
         
@@ -216,7 +243,24 @@ class Circuit:
         
         print(self._gates[-1], ".\n")
     
+def random_circuit(depth: int = 1) -> Circuit:
+    """
+    Function that returns a random circuit of unitaries,
+    of given depth.
 
+    Args:
+        depth (int): depth of the circuit to be returned.
+                    Implicitly, it is 1.
+
+    Returns:
+        Circuit : circuit with 'depth' random unitaries
+    """
+    gates = []
+
+    for i in range(depth):
+        gates.append(random_unitary())
+    
+    return Circuit(gates)
         
     
 
