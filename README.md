@@ -100,7 +100,7 @@ Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with dosct
 
 Ralph Jason Costales, ralph.costales.24@ucl.ac.uk : implementation of first MVP and gate_list. Tests for UnitaryGate (with docstrings), and README.
 
-Mai Pham, nguyet.pham.24@ucl.ac.uk : implementation of first MVP. UnitaryGate class (with docstrings). Example notebook.
+Mai Pham, nguyet.pham.24@ucl.ac.uk : implementation of first MVP and gate_list. UnitaryGate class (with docstrings). Example notebook.
 
 Delia Melinte Citea, delia.citea.20@ucl.ac.uk : Circuit (class and tests, with docstrings). README. 
 
