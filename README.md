@@ -51,17 +51,29 @@ We also predefined a range of unitaries for you in the `gate_list` file.
 
 ## ⬇️ Installation
 
-FOR DILLON:
-Simple, understandable installation instructions!
+Installing the DrMD package is a very simple process!
+
+First, you will need to clone the git repository:
 
 ```bash
-pip install my-package
+git clone https://github.com/QC2-python-SE/DrMD.git
 ```
 
-And be sure to specify any other minimum requirements like Python versions or operating systems.
+You can then install the package by running the following command in the base directory:
 
-*You may be inclined to add development instructions here, don't.*
+```bash
+pip install .
+```
 
+You can verify the installation by running:
+
+```bash
+pip show drmd
+```
+
+That's it! You're now all set to start using the package.
+
+_Note: The drmd package requires a minimum python version of 3.6. This will automatically be checked in the package installation.
 
 ## ℹ️ Structure of the package and development info
 
