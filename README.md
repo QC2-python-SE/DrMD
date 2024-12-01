@@ -92,7 +92,7 @@ Follow these steps to generate the documentation for this package:
 
 ---
 
-### 1. Install Required Packages
+#### 1. Install Required Packages
 Ensure the necessary dependencies are installed (this should already be done from `requirements.txt`):
 
 ```bash
@@ -101,7 +101,7 @@ pip install nbsphinx nbconvert pandoc
 
 ---
 
-### 2. Clean the Documentation Directory
+#### 2. Clean the Documentation Directory
 While in the base directory of the project, navigate to the `docs` directory and clean previous builds:
 
 ```bash
@@ -111,27 +111,27 @@ make clean
 
 ---
 
-### 3. Install Pandoc
-#### Using Conda (Recommended):
+##### 3. Install Pandoc
+**Using Conda (Recommended)**:
 If you're using `conda`, install `pandoc` by running:
 
 ```bash
 conda install pandoc
 ```
 
-#### Without Conda:
+**Without Conda**:
 Download and install Pandoc based on your operating system:
 
-- **Windows**:  
+- ***Windows***:  
   Visit the [Pandoc Downloads Page](https://pandoc.org/installing.html), download the installer, and follow the installation steps.
 
-- **Mac/Linux**:  
+- ***Mac/Linux***:  
   Use a package manager:
-  - **Mac**:  
+  - ***Mac***:  
     ```bash
     brew install pandoc
     ```
-  - **Linux**:  
+  - ***Linux***:  
     ```bash
     sudo apt-get install pandoc
     ```
@@ -139,7 +139,7 @@ Download and install Pandoc based on your operating system:
 
 ---
 
-### 4. Build the HTML Documentation
+#### 4. Build the HTML Documentation
 Once the dependencies are installed and the directory is clean, build the HTML documentation:
 
 ```bash
@@ -148,7 +148,7 @@ make html
 
 ---
 
-### 5. View the Documentation
+#### 5. View the Documentation
 Navigate to the generated `index.html` to browse the documentation for the package:
 
 ```plaintext
