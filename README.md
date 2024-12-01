@@ -107,27 +107,27 @@ cd docs
 make clean
 ```
 
-##### 3. Install Pandoc
-**Using Conda (Recommended)**:
+#### 3. Install Pandoc
+##### Using Conda (Recommended):
 If you're using `conda`, install `pandoc` by running:
 
 ```bash
 conda install pandoc
 ```
 
-**Without Conda**:
+##### Without Conda:
 Download and install Pandoc based on your operating system:
 
-- ***Windows***:  
+- **Windows**:  
   Visit the [Pandoc Downloads Page](https://pandoc.org/installing.html), download the installer, and follow the installation steps.
 
-- ***Mac/Linux***:  
+- **Mac/Linux**:  
   Use a package manager:
-  - ***Mac***:  
+  - **Mac***:  
     ```bash
     brew install pandoc
     ```
-  - ***Linux***:  
+  - **Linux**:  
     ```bash
     sudo apt-get install pandoc
     ```
