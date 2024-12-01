@@ -73,7 +73,7 @@ pip show drmd
 
 That's it! You're now all set to start using the package.
 
-_Note: The drmd package requires a minimum python version of 3.6. This will automatically be checked in the package installation.
+_Note: The drmd package requires a minimum python version of 3.6. This will automatically be checked in the package installation._
 
 ## ℹ️ Structure of the package and development info
 
