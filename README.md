@@ -99,8 +99,6 @@ Ensure the necessary dependencies are installed (this should already be done fro
 pip install nbsphinx nbconvert pandoc
 ```
 
----
-
 #### 2. Clean the Documentation Directory
 While in the base directory of the project, navigate to the `docs` directory and clean previous builds:
 
@@ -108,8 +106,6 @@ While in the base directory of the project, navigate to the `docs` directory and
 cd docs
 make clean
 ```
-
----
 
 ##### 3. Install Pandoc
 **Using Conda (Recommended)**:
@@ -137,7 +133,6 @@ Download and install Pandoc based on your operating system:
     ```
     *(For Debian-based distributions; use your distro's package manager if different.)*
 
----
 
 #### 4. Build the HTML Documentation
 Once the dependencies are installed and the directory is clean, build the HTML documentation:
@@ -146,17 +141,12 @@ Once the dependencies are installed and the directory is clean, build the HTML d
 make html
 ```
 
----
-
 #### 5. View the Documentation
 Navigate to the generated `index.html` to browse the documentation for the package:
 
 ```plaintext
 ./docs/build/html/index.html
 ```
-
----
-
 
 ## ℹ️ Structure of the package and development info
 
