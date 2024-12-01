@@ -68,7 +68,7 @@ And be sure to specify any other minimum requirements like Python versions or op
 This project is designed to introduce students to performing quantum circuits in Python. \
 The package allows users to play around with applying different quantum operators onto two-qubit states and perform a measurement in the Z-basis at the end of a circuit.
 
-We are designing our package in an iterative and model-driven manner, striving to make our code maintainable, secure, and reusable.\
+We are designing our package in an iterative and model-driven manner, striving to make our code maintainable, secure, and reusable. Hence we used the object-oriented paradigm, which fits well with these requirements, through abstraction and encapsulation.\
 Our humble start involved using `UnitaryGate` objects to apply unitaries to vectors given as lists. \
 We successively added functionalities, and we plan to iteratively add classes, such as measurement operators! 
 
