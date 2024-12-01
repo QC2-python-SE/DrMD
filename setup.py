@@ -7,15 +7,16 @@ setup(
    long_description=open("README.md").read(),          
    long_description_content_type="text/markdown",   
    author='DrMD',
+   author_email='dillon.lewis.24@ucl.ac.uk',
    url='https://github.com/QC2-python-SE/DrMD',
    license='MIT',
    packages=find_packages(),
    install_requires=[                       # Dependencies
-        "numpy>=2.1.1",
+        "numpy<2",
         "scipy>=1.14.1",
         "pytest>=8.3.3",
-        "sphinx-build>=8.1.3"
-    ],
-   install_requires=['wheel', 'bar', 'greek'], #external packages as dependencies
+        "wheel",
+        "bar",
+        "greek"],
    python_requires=">=3.6",                 # Minimum Python version
 )
