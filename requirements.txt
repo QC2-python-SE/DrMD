@@ -3,7 +3,7 @@ scipy
 pytest
 sphinx
 sphinx-rtd-theme
-nbpshinx
+nbsphinx
 nbconvert
 pandoc
 pygments

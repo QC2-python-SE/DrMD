@@ -96,11 +96,11 @@ The integrity of the data is ensured by forcing the user to interact with the re
 
 ## ✍️ Authors
 
-Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with dosctrings). Documentation and package generation. 
+Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with docstrings). Documentation and package generation. 
 
-Ralph Jason Costales, ralph.costales.24@ucl.ac.uk : implementation of first MVP and gate_list. Tests for UnitaryGate (with docstrings), and README.
+Ralph Jason Costales, ralph.costales.24@ucl.ac.uk : Defined gate_list and developed MVP. Tests for UnitaryGate (with docstrings). README.
 
-Mai Pham, nguyet.pham.24@ucl.ac.uk : implementation of first MVP and gate_list. UnitaryGate class (with docstrings). Example notebook.
+Mai Pham, nguyet.pham.24@ucl.ac.uk : Defined gate_list and developed MVP. UnitaryGate class (with docstrings). Tutorial notebook.
 
 Delia Melinte Citea, delia.citea.20@ucl.ac.uk : Circuit (class and tests, with docstrings). README. 
 
