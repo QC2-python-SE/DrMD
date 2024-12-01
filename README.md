@@ -182,7 +182,7 @@ The integrity of the data is ensured by forcing the user to interact with the re
 
 ## ✍️ Authors
 
-Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with docstrings). Documentation and package generation. 
+Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with docstrings). Documentation and package generation. README. 
 
 Ralph Jason Costales, ralph.costales.24@ucl.ac.uk : Defined gate_list and developed MVP. Tests for UnitaryGate (with docstrings). README.
 
