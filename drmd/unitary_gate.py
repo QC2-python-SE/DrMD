@@ -17,7 +17,7 @@ class UnitaryGate:
     of applying these unitaries to arbitrary quantum states.
 
     Attributes:
-        matrix_rep (numpy.ndarray): The matrix representation of 
+        _matrix (numpy.ndarray): The matrix representation of 
         the unitary gate.
         
     """
