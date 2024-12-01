@@ -82,7 +82,7 @@ The functionalities of the package arise at the interplay of three key classes:
 * `Circuit`
 
 The relationship between classes is the following (in a simplified diagram):
-![UML simplified](https://github.com/user-attachments/assets/afccb539-77d7-42e0-afb0-ad58a6a8d383)
+![UML simplified](https://github.com/user-attachments/assets/71916319-1a67-4d13-9fd0-ef604987ee62)
 
 Users may utilize the ```UnitaryGate``` class to perform a variety of operations associated to unitary operators. They can either select from pre-existing gates listed in `gate_list.py`, or are encouraged to experiment with their own unitary gates, which they construct. Gates may be only be built from 4x4 unitary matrices, or from two 2x2 matrices, whatever may suit their fancy. An informative error will be printed should they try to construct a gate from a non-unitary operator, or perhaps a frog :frog:. The class also contains the ```apply``` function that applies the gate to either a four element ```ndarray```, or an object of the ```QubitState``` class. Use ``dagger`` to obtain the Hermitian conjugate of a unitary operator, and ```compare``` to check if two gates are equal. 
 
