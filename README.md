@@ -39,8 +39,9 @@ Just feed a list of `UnitaryGate` objects into the constructor of the `Circuit` 
 Once you have your unitaries and your circuit, you can just `apply` them onto your states created with the `QubitState` class!\
 You can then explore the resulting state using `peek`, and measure in the computational basis (one or both qubits) using `measure_stats` (for statistics) and `measure_collapse` (to randomly collapse the state according to the distribution).
 
-Feeling lazy 😴? \
-You can also apply unitaries and circuits directly onto `numpy.ndarray` objects - but make sure you know what you are doing! The resulting state might not be normalised.
+**Feeling lazy 😴?** \
+You can also apply unitaries and circuits directly onto `numpy.ndarray` objects - but make sure you know what you are doing! \
+The resulting state might not be normalised. Using the `QubitState` class will ensure normalisation for you instead.
 
 We also predefined a range of unitaries for you in the `gate_list` file.
 
@@ -72,13 +73,13 @@ The aforementioned ```QubitState``` class in qubit_state.py allows users to defi
 
 ## ✍️ Authors
 
-Delia Melinte Citea, delia.citea.20@ucl.ac.uk
+Dillon Lewis dillon.lewis.24@ucl.ac.uk
 
 Ralph Jason Costales, ralph.costales.24@ucl.ac.uk
 
 Mai Pham, nguyet.pham.24@ucl.ac.uk
 
-Dillon Lewis dillon.lewis.24@ucl.ac.uk
+Delia Melinte Citea, delia.citea.20@ucl.ac.uk
 
 ## 💭 Feedback and Contributing
 
