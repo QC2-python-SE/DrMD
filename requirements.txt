@@ -12,3 +12,4 @@ setuptools
 wheel
 twine
 docutils<0.18
+jinja2==3.0.3
