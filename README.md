@@ -147,7 +147,7 @@ Navigate to the generated `index.html` to browse the documentation for the packa
 ```plaintext
 ./docs/build/html/index.html
 ```
-_Note: If you have the latest version of sphinx, you may run into version issues with jinja2. Generating these docs requires jinja2 version 3.03. (You may have to uninstall and reinstall jinja2 to satisfy this.)_
+_Note: If you have the latest version of sphinx, you may run into version issues with jinja2. Generating these docs requires jinja2 version 3.0.3. (You may have to uninstall and reinstall jinja2 to satisfy this.)_
 
 ## ℹ️ Structure of the package and development info
 
