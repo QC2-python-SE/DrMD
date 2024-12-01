@@ -102,6 +102,8 @@ Mai Pham, nguyet.pham.24@ucl.ac.uk
 
 Delia Melinte Citea, delia.citea.20@ucl.ac.uk
 
+The design of the package (first MVP and successive models) was decided collectively through design meetings.
+
 ## 💭 Feedback and Contributing
 
 Student 👨‍🎓👩‍🎓? Researcher 👨‍🔬👩‍🔬 ? Wandering Critic?\
