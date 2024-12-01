@@ -8,3 +8,7 @@ nbconvert
 pandoc
 pygments
 ipython
+setuptools
+wheel
+twine
+docutils<0.18

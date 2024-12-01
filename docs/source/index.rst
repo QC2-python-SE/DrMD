@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to DrMD's documentation!
-===============================
+================================
 
 DrMD is a python package designed for performing gate operations on two-qubit states.
 This package allows for the creation of custom unitary gates, intialisation of 

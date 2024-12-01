@@ -17,9 +17,9 @@ This package is **for you**.
 
 The *DR. MD quantum circuits and unitaries* package allows you to create, view, and apply unitary operations on 2-qubit states!
 
-And if you are not too sure about what you are doing? 
+And if you are not too sure about what you are doing?
 
-**Worry not!** 
+**Worry not!**
 
 We created the package with this kind of situations in mind: \
 we've put checks :guard: in place to ensure that no accidental mishandling of the data takes place!\
@@ -34,7 +34,7 @@ Just write your unitaries in a `numpy.array`, a `tuple` or a `list`, and feed th
 The class will ensure you are only dealing with unitaries, and that you don't accidentally change the gate in your code!
 
 Want to use a quantum circuit?\
-Just feed a list of `UnitaryGate` objects into the constructor of the `Circuit` class. 
+Just feed a list of `UnitaryGate` objects into the constructor of the `Circuit` class.
 
 (*Psst!* Not sure what to include in your circuit? Toy with random circuits using `random_circuit`, or create an empty one and then `append` unitaries as you go!)
 
@@ -47,7 +47,7 @@ The resulting state might not be normalised. Using the `QubitState` class will e
 
 We also predefined a range of unitaries for you in the `gate_list` file.
 
-**You can find a tutorial notebook plenty of examples in the folder `docs\source\notebooks`.** 
+**You can find a tutorial notebook plenty of examples in the folder `docs\source\notebooks`.**
 
 ## ⬇️ Installation
 
@@ -58,9 +58,20 @@ First, you will need to clone the git repository:
 ```bash
 git clone https://github.com/QC2-python-SE/DrMD.git
 ```
+Then, you'll need to install the necessary packages:
 
-You can then install the package by running the following command in the base directory:
-
+```bash
+pip install -r requirements.txt
+```
+You can then build the package:
+```bash
+pip python setup.py sdist bdist_wheel
+```
+And validate the build by checking that the following check passes:
+```bash
+twine check dist/*
+```
+Finally, can then install the package by running the following command in the base directory:
 ```bash
 pip install .
 ```
@@ -74,6 +85,78 @@ pip show drmd
 That's it! You're now all set to start using the package.
 
 _Note: The drmd package requires a minimum python version of 3.6. This will automatically be checked in the package installation._
+
+## 📚 Generating Documentation for the Package
+
+Follow these steps to generate the documentation for this package:
+
+---
+
+### 1. Install Required Packages
+Ensure the necessary dependencies are installed (this should already be done from `requirements.txt`):
+
+```bash
+pip install nbsphinx nbconvert pandoc
+```
+
+---
+
+### 2. Clean the Documentation Directory
+While in the base directory of the project, navigate to the `docs` directory and clean previous builds:
+
+```bash
+cd docs
+make clean
+```
+
+---
+
+### 3. Install Pandoc
+#### Using Conda (Recommended):
+If you're using `conda`, install `pandoc` by running:
+
+```bash
+conda install pandoc
+```
+
+#### Without Conda:
+Download and install Pandoc based on your operating system:
+
+- **Windows**:  
+  Visit the [Pandoc Downloads Page](https://pandoc.org/installing.html), download the installer, and follow the installation steps.
+
+- **Mac/Linux**:  
+  Use a package manager:
+  - **Mac**:  
+    ```bash
+    brew install pandoc
+    ```
+  - **Linux**:  
+    ```bash
+    sudo apt-get install pandoc
+    ```
+    *(For Debian-based distributions; use your distro's package manager if different.)*
+
+---
+
+### 4. Build the HTML Documentation
+Once the dependencies are installed and the directory is clean, build the HTML documentation:
+
+```bash
+make html
+```
+
+---
+
+### 5. View the Documentation
+Navigate to the generated `index.html` to browse the documentation for the package:
+
+```plaintext
+./docs/build/html/index.html
+```
+
+---
+
 
 ## ℹ️ Structure of the package and development info
 
