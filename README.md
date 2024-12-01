@@ -69,10 +69,12 @@ This project is designed to introduce students to performing quantum circuits in
 The package allows users to play around with applying different quantum operators onto two-qubit states and perform a measurement in the Z-basis at the end of a circuit.
 
 We are designing our package in an iterative and model-driven manner, striving to make our code maintainable, secure, and reusable. Hence we used the object-oriented paradigm, which fits well with these requirements, through abstraction and encapsulation.\
-Our humble start involved using `UnitaryGate` objects to apply unitaries to vectors given as lists. \
+Our humble start (MVP) involved using `UnitaryGate` objects to apply unitaries to vectors given as lists. \
 We successively added functionalities, and we plan to iteratively add classes, such as measurement operators! 
 
-Want to make part of the developemnt team? Give us a ☎️. 
+Rigorous testing is performed through pytest (due to its ease of use).
+
+Want to be part of the developement team? Give us a ☎️. 
 
 ### Current state of the package 📦
 
@@ -94,15 +96,15 @@ The integrity of the data is ensured by forcing the user to interact with the re
 
 ## ✍️ Authors
 
-Dillon Lewis dillon.lewis.24@ucl.ac.uk
+Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with dosctrings). Documentation and package generation. 
 
-Ralph Jason Costales, ralph.costales.24@ucl.ac.uk
+Ralph Jason Costales, ralph.costales.24@ucl.ac.uk : implementation of first MVP and gate_list. Tests for UnitaryGate (with docstrings), and README.
 
-Mai Pham, nguyet.pham.24@ucl.ac.uk
+Mai Pham, nguyet.pham.24@ucl.ac.uk : implementation of first MVP. UnitaryGate class (with docstrings). Example notebook.
 
-Delia Melinte Citea, delia.citea.20@ucl.ac.uk
+Delia Melinte Citea, delia.citea.20@ucl.ac.uk : Circuit (class and tests, with docstrings). README. 
 
-The design of the package (first MVP and successive models) was decided collectively through design meetings.
+The design of the package (first MVP and successive models) was decided collectively through periodic (documented) design meetings.
 
 ## 💭 Feedback and Contributing
 
