@@ -24,7 +24,7 @@ The aforementioned ```QubitState``` class in qubit_state.py allows users to defi
 
 ### ✍️ Authors
 
-Delia Melinte Citea, delia.mcitea.20@ucl.ac.uk
+Delia Melinte Citea, delia.citea.20@ucl.ac.uk
 
 Ralph Jason Costales, ralph.costales.24@ucl.ac.uk
 
