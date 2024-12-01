@@ -2,10 +2,12 @@
 
 ## 🌟 Highlights
 
-To come back later (summarise main points of Overview + main sale points)
-- Some functionality made easy!
-- This problem handled
-- etc.
+- Package for students studying Quantum Computing
+- Use the package to apply `UnitaryGates` and `Circuits` of unitaries on two-qubit `QubitStates`
+- Measure your `QubitState` in the computational basis at the end of your circuit
+- Checks are in place to ensure unitarity of gates
+- States defined with `QubitState` are automatically renormalised
+- Data integrity and validity is ensured by forcing the user to interact with it through class methods.
 
 ## Who is this package for? 🧑‍🎓
 
@@ -25,7 +27,7 @@ We also check for your that your operations are unitary, and renormalise your qu
 
 That way you can focus :mag_right: on what matters most!
 
-## 🚀 Usage
+## 🚀 Usage 101
 
 Want to create a unitary gate?\
 Just write your unitaries in a `numpy.array`, a `tuple` or a `list`, and feed them into the constructor of the `UnitaryGate` class. \
