@@ -194,7 +194,7 @@ cd docs
 python -m pytest
 ```
 
-That's it! 🎉 You should now see the results of your tests in the terminal.
+That's it! 🎉 You should now see the results of the tests in the terminal.
 
 
 ## ✍️ Authors
