@@ -180,6 +180,23 @@ The aforementioned ```QubitState``` class allows users to define qubit states as
 
 The integrity of the data is ensured by forcing the user to interact with the representations of unitaries, circuits, and states through the class methods (encapsulation). Thus, unsafe modification of the attributes is prevented.
 
+## 🧪 Running Tests
+
+To run the tests for this project, follow these steps:
+
+1. Navigate to the `/docs` folder:
+```bash
+cd docs
+```
+
+2. Run the tests using pytest:
+```bash
+python -m pytest
+```
+
+That's it! 🎉 You should now see the results of your tests in the terminal.
+
+
 ## ✍️ Authors
 
 Dillon Lewis dillon.lewis.24@ucl.ac.uk : QubitState (class and tests, with docstrings). Documentation and package generation. README. 
